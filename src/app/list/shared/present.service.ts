@@ -64,7 +64,7 @@ export class PresentService {
   }
 
   getPresentByChild(childId: string){
-    return this.http.get(`${this.PRESENTS_URL}/${childId}/`, this.getOptions())
+    return this.http.get(`${this.PRESENTS_URL}/${childId}`)
       .map((res: Response) => {
         return res.status === 200 ? res.json() : {};
       })
