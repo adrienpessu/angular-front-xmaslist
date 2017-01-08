@@ -3,6 +3,7 @@ import {Router, NavigationEnd} from "@angular/router";
 import {ChildService} from "../child/shared/child.service";
 import {PresentService} from "./shared/present.service";
 import {MdDialog, MdDialogRef, MdSnackBar} from '@angular/material';
+import {Observable} from "rxjs";
 
 @Component({
   selector: 'app-list',
@@ -54,7 +55,14 @@ export class ListComponent implements OnInit {
           this.child = this.childService.getChildrenAsMap()[childId];
         }
 
-        this.presents = this.presentService.getPresentByChild(childId);
+        this.presentService.getPresentByChild(childId).subscribe(
+          presents => {
+            this.presents = presents;
+          },
+          error => {
+            Observable.throw(error)
+          }
+        );
 
       });
 
