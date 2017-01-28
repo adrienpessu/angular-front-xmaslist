@@ -4,6 +4,7 @@ import {ChildService} from "../child/shared/child.service";
 import {PresentService} from "./shared/present.service";
 import {MdDialog, MdDialogRef, MdSnackBar} from '@angular/material';
 import {Observable} from "rxjs";
+import {Present} from "./shared/present.model";
 
 @Component({
   selector: 'app-list',
@@ -14,9 +15,11 @@ import {Observable} from "rxjs";
 })
 export class ListComponent implements OnInit {
 
-  presents: any[];
+  presents: Present[];
 
   child: string = 'adrien';
+
+  childId: string = 'adrien';
 
   dialogRef: MdDialogRef<PizzaDialog>;
 
@@ -34,12 +37,26 @@ export class ListComponent implements OnInit {
         for(let present of this.presents){
           if(present.id == uid){
             present.santaName = (result.santaName?result.santaName:'Père noël');
+            this.presentService.checkPresent(present).subscribe((e) => {
+              this.refreshPresents();
+            });
           }
         }
       }
       this.dialogRef = null;
     });
     return false;
+  }
+
+  refreshPresents(){
+    this.presentService.getPresentByChild(this.childId).subscribe(
+      presents => {
+        this.presents = presents;
+      },
+      error => {
+        Observable.throw(error)
+      }
+    );
   }
 
   ngOnInit() {
@@ -55,18 +72,11 @@ export class ListComponent implements OnInit {
           this.child = this.childService.getChildrenAsMap()[childId];
         }
 
-        this.presentService.getPresentByChild(childId).subscribe(
-          presents => {
-            this.presents = presents;
-          },
-          error => {
-            Observable.throw(error)
-          }
-        );
+        this.childId = childId;
+
+        this.refreshPresents();
 
       });
-
-
 
   }
 

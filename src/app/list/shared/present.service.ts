@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {Response, Http, Headers, RequestOptions} from "@angular/http";
 import {Observable} from "rxjs";
 import {environment} from "../../../environments/environment";
+import {Present} from "./present.model";
 
 @Injectable()
 export class PresentService {
@@ -65,6 +66,17 @@ export class PresentService {
 
   getPresentByChild(childId: string){
     return this.http.get(`${this.PRESENTS_URL}/${childId}`)
+      .map((res: Response) => {
+        return res.status === 200 ? res.json() : {};
+      })
+      .catch((error: any) => {
+        return Observable.throw(error);
+      })
+  }
+
+  checkPresent(present: Present){
+    console.log(`${this.PRESENTS_URL}`);
+    return this.http.put(`${this.PRESENTS_URL}`, present, this.getOptions())
       .map((res: Response) => {
         return res.status === 200 ? res.json() : {};
       })
