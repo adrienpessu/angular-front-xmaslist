@@ -1,0 +1,14 @@
+<div style="display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;">
+  <input
+    [(ngModel)]="password"
+    type="password"
+    mdInput
+    placeholder="Mot de passe"
+    maxlength="100"
+    value="">
+<br/>
+<button md-raised-button (click)="login()">Entrer</button>
+</div>

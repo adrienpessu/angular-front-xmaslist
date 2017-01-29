@@ -7,14 +7,16 @@ import { MaterialModule } from '@angular/material';
 import { AppComponent } from './app.component';
 import {ListComponent, PizzaDialog} from './list/list.component';
 import {routing} from './app.routing';
-import { MenuComponent } from './child/menu/menu.component'
+import { MenuComponent } from './child/menu/menu.component';
+import { LoginComponent } from './login/login.component'
 
 @NgModule({
   declarations: [
     AppComponent,
     ListComponent,
     MenuComponent,
-    PizzaDialog
+    PizzaDialog,
+    LoginComponent
   ],
   entryComponents: [PizzaDialog],
   imports: [

@@ -27,7 +27,6 @@ export class ListComponent implements OnInit {
     , private presentService: PresentService, public dialog: MdDialog) { }
 
   openDialog(uid: string) {
-
     this.dialogRef = this.dialog.open(PizzaDialog, {
       disableClose: false
     });
@@ -64,7 +63,8 @@ export class ListComponent implements OnInit {
       .filter(event => event instanceof NavigationEnd)
       .subscribe((e) => {
         let childId = e.url.replace(/\/list\//g, '');
-        if(childId == '/'){
+        console.log(e.url);
+        if(childId == '/' || childId == '/list'){
           this.child = this.childService.getChildren()[0].name;
           childId = this.childService.getChildren()[0].id;
         }
