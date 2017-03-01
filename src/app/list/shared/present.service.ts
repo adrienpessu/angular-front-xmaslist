@@ -12,9 +12,9 @@ export class PresentService {
   constructor(private http:Http) { }
 
   getOptions(){
-    //const userToken = localStorage.getItem('id_token');
+    const userToken = localStorage.getItem('id_token');
     const headers = new Headers({ 'Content-Type': 'application/json' });
-    //headers.append('Authorization', 'Bearer ' + userToken);
+    headers.append('Authorization', 'Bearer ' + userToken);
     const options = new RequestOptions({ headers: headers });
     return options;
   }
@@ -65,7 +65,7 @@ export class PresentService {
   }
 
   getPresentByChild(childId: string){
-    return this.http.get(`${this.PRESENTS_URL}/${childId}`)
+    return this.http.get(`${this.PRESENTS_URL}/${childId}`, this.getOptions())
       .map((res: Response) => {
         return res.status === 200 ? res.json() : {};
       })

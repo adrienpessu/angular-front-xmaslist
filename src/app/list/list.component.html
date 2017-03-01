@@ -1,15 +1,33 @@
-<md-card><h3 md-line >Voici les souhaits de {{child}} :</h3></md-card>
-<br/>
-<md-card>
-  <md-list>
-    <md-list-item *ngFor="let present of presents">
-      <md-checkbox [checked]="present.santaName" [disabled]="!(!present.santaName)" (click)="(!present.santaName?openDialog(present.id):false)" ></md-checkbox>
-      <img *ngIf="present.pics" md-list-avatar src="{{present.pics}}" alt="...">
-      <h3 md-line> {{present.label}} </h3>
-      <p md-line>
-        <span> <a href="{{present.url}}" target="_blank" >{{present.url}} </a></span><br/>
-        <span *ngIf="present.santaName" class="demo-2"> <i> Déjà préparé par les petits lutins de  {{present.santaName}} </i></span>
-      </p>
-    </md-list-item>
-  </md-list>
-</md-card>
+<md-sidenav-container style="height: 100%">
+
+  <md-sidenav #sidenav mode="side" class="app-sidenav" opened="true">
+    <app-menu></app-menu>
+  </md-sidenav>
+
+  <md-toolbar color="primary">
+    <div style="cursor: pointer" class="app-icon-button" (click)="sidenav.toggle()">
+      <i class="material-icons app-toolbar-menu">menu</i>
+    </div>
+    <div style="margin-left: 10px;margin-top: -5px;">
+      Voici les souhaits de {{child}}
+    </div>
+    <span class="app-toolbar-filler"></span>
+  </md-toolbar>
+  <div class="app-content">
+    <md-card>
+      <md-list>
+        <md-list-item *ngFor="let present of presents">
+          <md-checkbox [checked]="present.santaName" [disabled]="!(!present.santaName)" (click)="(!present.santaName?openDialog(present.id):false)" ></md-checkbox>
+          <img *ngIf="present.pics" md-list-avatar src="{{present.pics}}" alt="...">
+          <h3 md-line> {{present.label}} </h3>
+          <p md-line>
+            <span> <a href="{{present.url}}" target="_blank" >{{present.url}} </a></span><br/>
+            <span *ngIf="present.santaName" class="demo-2"> <i> Déjà préparé par les petits lutins de  {{present.santaName}} </i></span>
+          </p>
+          <md-divider></md-divider>
+        </md-list-item>
+      </md-list>
+    </md-card>
+  </div>
+
+</md-sidenav-container>

@@ -6,7 +6,7 @@ import {environment} from "../../environments/environment";
 @Injectable()
 export class LoginService {
 
-  PRESENTS_URL = `${environment.API_URL}/login`;
+  LOGIN_URL = `${environment.API_AUTH_URL}/auth`;
 
   constructor(private http:Http) { }
 
@@ -18,13 +18,14 @@ export class LoginService {
     return options;
   }
 
-  giveProfile(event:string, password:string){
-    switch(password){
-      case 'guest':
-        return 'guest';
-      case 'admin':
-        return 'admin';
-    }
+  giveProfile(login:string, password:string){
+    return this.http.post(`${this.LOGIN_URL}/get/`, {"name": login, "password": password}, this.getOptions())
+      .map((res: Response) => {
+        return res.status === 200 ? res.json() : {};
+      })
+      .catch((error: any) => {
+        return Observable.throw(error);
+      })
   }
 
 }

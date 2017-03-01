@@ -5,6 +5,7 @@ import {PresentService} from "./shared/present.service";
 import {MdDialog, MdDialogRef, MdSnackBar} from '@angular/material';
 import {Observable} from "rxjs";
 import {Present} from "./shared/present.model";
+import {Profile} from "../login/shared/profile.model";
 
 @Component({
   selector: 'app-list',
@@ -20,6 +21,8 @@ export class ListComponent implements OnInit {
   child: string = 'adrien';
 
   childId: string = 'adrien';
+
+  profile: Profile;
 
   dialogRef: MdDialogRef<PizzaDialog>;
 
@@ -59,6 +62,16 @@ export class ListComponent implements OnInit {
   }
 
   ngOnInit() {
+    if(!!!localStorage.getItem('profile')){
+      this.profile = JSON.parse(localStorage.getItem('profile'));
+      if(this.profile.name == 'invite'
+        || this.profile.name == 'admin'){
+        console.log('logged');
+      }
+      else{
+        this.router.navigate(['']);
+      }
+    }
     this.router.events
       .filter(event => event instanceof NavigationEnd)
       .subscribe((e) => {
@@ -79,10 +92,6 @@ export class ListComponent implements OnInit {
       });
 
   }
-
-
-
-
 }
 
 @Component({

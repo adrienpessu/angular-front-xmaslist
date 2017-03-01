@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {LoginService} from "./login.service";
 import {Router} from "@angular/router";
+import {Profile} from "./shared/profile.model";
 
 @Component({
   selector: 'app-login',
@@ -17,12 +18,14 @@ export class LoginComponent implements OnInit {
   constructor(private loginService: LoginService, private router: Router) { }
 
   login(){
-    this.profile = this.loginService.giveProfile('default', this.password);
-    console.log(this.profile);
-    if(this.profile != ''){
-      localStorage.setItem('profile', this.profile);
-      this.redirectToList();
-    }
+    this.loginService.giveProfile('invite', this.password).subscribe(result => {
+      console.log(result);
+      if(result && result.name && result.token){
+        localStorage.setItem('profile', JSON.stringify(result));
+        localStorage.setItem('id_token', result.token);
+        this.redirectToList();
+      }
+    });
   }
 
   redirectToList(){
@@ -30,8 +33,8 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit() {
-    if(localStorage.getItem('profile') == 'admin'
-      || localStorage.getItem('profile') == 'guest'){
+    if(localStorage.getItem('profile')){
+      const profile: Profile = JSON.parse(localStorage.getItem('profile'));
       this.router.navigate(['/list']);
     }
   }
