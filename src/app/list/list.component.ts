@@ -74,9 +74,8 @@ export class ListComponent implements OnInit {
     }
     this.router.events
       .filter(event => event instanceof NavigationEnd)
-      .subscribe((e) => {
+      .subscribe((e: NavigationEnd) => {
         let childId = e.url.replace(/\/list\//g, '');
-        console.log(e.url);
         if(childId == '/' || childId == '/list'){
           this.child = this.childService.getChildren()[0].name;
           childId = this.childService.getChildren()[0].id;
@@ -88,7 +87,6 @@ export class ListComponent implements OnInit {
         this.childId = childId;
 
         this.refreshPresents();
-
       });
 
   }
