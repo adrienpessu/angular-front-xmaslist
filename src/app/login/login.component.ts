@@ -28,6 +28,18 @@ export class LoginComponent implements OnInit {
     });
   }
 
+  onEnterKey (event) {
+      console.log(event);
+      if(event.which === 13) {
+        this.login()
+        event.preventDefault();
+      }
+  };
+
+  IamFocus(){
+    return true;
+  }
+
   redirectToList(){
     this.router.navigate(['/list']);
   }

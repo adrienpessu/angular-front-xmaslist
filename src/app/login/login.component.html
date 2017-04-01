@@ -1,9 +1,9 @@
 <div style="display: flex;
     align-items: center;
     justify-content: center;
-    flex-direction: column;">
+    flex-direction: column;" (keyup)="onEnterKey($event)">
   <md-input-container>
-  <input mdInput
+  <input  autofocus mdInput
     [(ngModel)]="password"
     type="password"
     placeholder="Mot de passe"
