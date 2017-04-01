@@ -101,9 +101,9 @@ export class ListComponent implements OnInit {
   selector: 'pizza-dialog',
   template: `
   
-  <md-card><h1 md-line md-dialog-title>Êtes-vous sûr de mettre ce présent dans votre hôte?</h1></md-card><br/>
+  <md-card><h1 md-line md-dialog-title>Êtes-vous sûr de reserver ce présent?</h1></md-card><br/>
   <md-card>
-    <p md-line>Après votre confirmation, ce présent ne sera plus selectionnable par un autre père Noël.
+    <p md-line>Après votre confirmation, ce présent ne sera plus selectionnable par une autre personne.
     <br/>Si vous le souhaitez, vous pouvez mettre votre nom.</p>
     <input md-input #dialogInput>
   </md-card>
