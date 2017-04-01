@@ -62,15 +62,20 @@ export class ListComponent implements OnInit {
   }
 
   ngOnInit() {
-    if(!!!localStorage.getItem('profile')){
+    if(localStorage.getItem('profile') !== null){
+
       this.profile = JSON.parse(localStorage.getItem('profile'));
-      if(this.profile.name == 'invite'
+
+      if(this.profile != null && this.profile.name == 'invite'
         || this.profile.name == 'admin'){
         console.log('logged');
       }
       else{
         this.router.navigate(['']);
       }
+    }
+    else{
+      this.router.navigate(['']);
     }
     this.router.events
       .filter(event => event instanceof NavigationEnd)
