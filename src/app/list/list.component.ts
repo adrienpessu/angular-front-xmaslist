@@ -26,6 +26,8 @@ export class ListComponent implements OnInit {
 
   dialogRef: MdDialogRef<PizzaDialog>;
 
+  dialogCreationRef: MdDialogRef<CreationDialog>;
+
   constructor(private router: Router, private childService: ChildService
     , private presentService: PresentService, public dialog: MdDialog) { }
 
@@ -46,6 +48,31 @@ export class ListComponent implements OnInit {
         }
       }
       this.dialogRef = null;
+    });
+    return false;
+  }
+
+  openCreationDialog() {
+    console.log('open creation please!!');
+    this.dialogCreationRef = this.dialog.open(CreationDialog, {
+      disableClose: false
+    });
+
+    this.dialogCreationRef.afterClosed().subscribe(result => {
+      if(result && result.answer){
+        let newPresent: Present = {
+          id: '',
+          label:result.label,
+          childId: this.childId,
+          url:result.link,
+          pics: result.pics,
+          santaName:''
+        };
+        this.presentService.createPresent(newPresent).subscribe((p: Present) => {
+          this.presents.push(p);
+        });
+      }
+      this.dialogCreationRef = null;
     });
     return false;
   }
@@ -99,20 +126,43 @@ export class ListComponent implements OnInit {
 
 @Component({
   selector: 'pizza-dialog',
-  template: `
-  
-  <md-card><h1 md-line md-dialog-title>Êtes-vous sûr de reserver ce présent?</h1></md-card><br/>
-  <md-card>
-    <p md-line>Après votre confirmation, ce présent ne sera plus selectionnable par une autre personne.
-    <br/>Si vous le souhaitez, vous pouvez mettre votre nom.</p>
-    <input md-input #dialogInput>
-  </md-card>
-  <md-dialog-actions>
-    <button md-raised-button (click)="dialogRef.close({'answer':true, 'santaName': dialogInput.value})">Oui, je confirme</button>
-    <button md-raised-button md-dialog-close>Non, je ne suis pas sûr</button>
-  </md-dialog-actions>
+  template: `    
+    <md-card><h1 md-line md-dialog-title>Êtes-vous sûr de reserver ce présent?</h1></md-card><br/>
+    <md-card>
+      <p md-line>Après votre confirmation, ce présent ne sera plus selectionnable par une autre personne.
+        <br/>Si vous le souhaitez, vous pouvez mettre votre nom.</p>
+      <input md-input #dialogInput>
+    </md-card>
+    <md-dialog-actions>
+      <button md-raised-button (click)="dialogRef.close({'answer':true, 'santaName': dialogInput.value})">Oui, je confirme</button>
+      <button md-raised-button md-dialog-close>Non, je ne suis pas sûr</button>
+    </md-dialog-actions>
   `
 })
 export class PizzaDialog {
   constructor(public dialogRef: MdDialogRef<PizzaDialog>) { }
+}
+
+@Component({
+  selector: 'creation-dialog',
+  template: `    
+    <md-card><h1 md-line md-dialog-title>Ajouter un présent</h1></md-card><br/>
+    <md-card>
+      <p md-line>Nom du cadeau (Obligatoire) :</p>
+      <input required mdInput #labelInput size="50">      
+      <p md-line>Lien web où acheter ou trouver des informations (facultatif) :</p>
+      <input md-input #linkInput size="50">      
+      <p md-line>Lien vers une image (facultatif) :</p>
+      <input md-input #picsInput size="50">
+    </md-card>
+    <md-dialog-actions>
+      <button md-raised-button (click)="(labelInput.value?dialogRef.close({'answer':true, 'label': labelInput.value, 'link': linkInput.value, 'pics': picsInput.value}):'')">
+        Créer
+      </button>
+      <button md-raised-button md-dialog-close>Annuler</button>
+    </md-dialog-actions>
+  `
+})
+export class CreationDialog {
+  constructor(public dialogRef: MdDialogRef<CreationDialog>) { }
 }

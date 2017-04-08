@@ -13,7 +13,7 @@
     </div>
     <span class="app-toolbar-filler"></span>
   </md-toolbar>
-  <div class="app-content">
+  <div class="app-content" style="height: 90%">
     <md-card>
       <md-list>
         <md-list-item *ngFor="let present of presents">
@@ -28,6 +28,9 @@
         </md-list-item>
       </md-list>
     </md-card>
+  </div>
+  <div class="btn-div" *ngIf="profile && profile.id == 'admin'">
+    <button class="btn-md" md-fab (click)="openCreationDialog()"><md-icon >add</md-icon></button>
   </div>
 
 </md-sidenav-container>

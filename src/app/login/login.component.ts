@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {LoginService} from "./login.service";
-import {Router} from "@angular/router";
+import {Router, ActivatedRoute, Params} from "@angular/router";
 import {Profile} from "./shared/profile.model";
 
 @Component({
@@ -15,11 +15,12 @@ export class LoginComponent implements OnInit {
 
   profile: string;
 
-  constructor(private loginService: LoginService, private router: Router) { }
+  user: string = 'invite';
+
+  constructor(private loginService: LoginService, private router: Router, private route: ActivatedRoute) { }
 
   login(){
-    this.loginService.giveProfile('invite', this.password).subscribe(result => {
-      console.log(result);
+    this.loginService.giveProfile(this.user, this.password).subscribe(result => {
       if(result && result.name && result.token){
         localStorage.setItem('profile', JSON.stringify(result));
         localStorage.setItem('id_token', result.token);
@@ -29,7 +30,6 @@ export class LoginComponent implements OnInit {
   }
 
   onEnterKey (event) {
-      console.log(event);
       if(event.which === 13) {
         this.login()
         event.preventDefault();
@@ -49,6 +49,10 @@ export class LoginComponent implements OnInit {
       const profile: Profile = JSON.parse(localStorage.getItem('profile'));
       this.router.navigate(['/list']);
     }
+    this.route.params
+      .subscribe((params: Params) => {
+        this.user = params['user'];
+      });
   }
 
 }

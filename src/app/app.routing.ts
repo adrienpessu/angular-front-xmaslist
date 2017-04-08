@@ -5,6 +5,7 @@ import {LoginComponent} from "./login/login.component";
 
 const appRoutes: Routes = [
   {path: '', component: LoginComponent},
+  {path: 'login/:user', component: LoginComponent},
   { path: 'list/:name', component: ListComponent },
   { path: 'list', component: ListComponent },
 ];
