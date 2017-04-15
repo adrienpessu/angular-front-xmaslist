@@ -49,4 +49,14 @@ export class PresentService {
       })
   }
 
+  removePresent(id: string){
+    return this.http.delete(`${this.PRESENTS_URL}/${id}`, this.getOptions())
+      .map((res: Response) => {
+        return res.status === 200 ? res : {};
+      })
+      .catch((error: any) => {
+        return Observable.throw(error);
+      })
+  }
+
 }

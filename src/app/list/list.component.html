@@ -13,13 +13,14 @@
     </div>
     <span class="app-toolbar-filler"></span>
   </md-toolbar>
-  <div class="app-content" style="height: 90%">
+  <div class="app-content" style="height: 90%;padding-right: 30px">
     <md-card>
       <md-list>
         <md-list-item *ngFor="let present of presents">
           <md-checkbox [checked]="present.santaName" [disabled]="!(!present.santaName)" (click)="(!present.santaName?openDialog(present.id):false)" ></md-checkbox>
+          <md-icon (click)="remove(present.id)" *ngIf="profile && profile.name == 'admin'">delete</md-icon>
           <img *ngIf="present.pics" md-list-avatar src="{{present.pics}}" alt="...">
-          <h3 md-line> {{present.label}} </h3>
+          <h3 md-line> {{present.label}}</h3>
           <p md-line>
             <span> <a href="{{present.url}}" target="_blank" >{{present.url}} </a></span><br/>
             <span *ngIf="present.santaName" class="demo-2"> <i> Déjà préparé par {{present.santaName}} </i></span>
@@ -29,7 +30,8 @@
       </md-list>
     </md-card>
   </div>
-  <div class="btn-div" *ngIf="profile && profile.id == 'admin'">
+
+  <div class="btn-div" *ngIf="profile && profile.name == 'admin'">
     <button class="btn-md" md-fab (click)="openCreationDialog()"><md-icon >add</md-icon></button>
   </div>
 

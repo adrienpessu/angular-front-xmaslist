@@ -88,13 +88,30 @@ export class ListComponent implements OnInit {
     );
   }
 
+  remove(id:string) {
+    this.presentService.removePresent(id).subscribe(
+      result => {
+        const newList:Present[] = [];
+        for(let p of this.presents){
+          if(p.id != id){
+            newList.push(p);
+          }
+        }
+        this.presents = newList;
+      },
+      error => {
+        Observable.throw(error)
+      }
+    );
+  }
+
   ngOnInit() {
     if(localStorage.getItem('profile') !== null){
 
       this.profile = JSON.parse(localStorage.getItem('profile'));
 
-      if(this.profile != null && this.profile.name == 'invite'
-        || this.profile.name == 'admin'){
+      if(this.profile != null && (this.profile.name == 'invite'
+        || this.profile.name == 'admin')){
         console.log('logged');
       }
       else{
