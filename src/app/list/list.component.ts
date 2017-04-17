@@ -53,7 +53,6 @@ export class ListComponent implements OnInit {
   }
 
   openCreationDialog() {
-    console.log('open creation please!!');
     this.dialogCreationRef = this.dialog.open(CreationDialog, {
       disableClose: false
     });
@@ -103,6 +102,11 @@ export class ListComponent implements OnInit {
         Observable.throw(error)
       }
     );
+  }
+
+  disconnect(){
+    localStorage.clear();
+    this.router.navigate(['']);
   }
 
   ngOnInit() {

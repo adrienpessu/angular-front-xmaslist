@@ -6,3 +6,7 @@
   bottom:5px;
   right:5px;
 }
+
+.pointer {
+  cursor: pointer;
+}

@@ -11,14 +11,15 @@
     <div style="margin-left: 10px;margin-top: -5px;">
       Voici les souhaits de {{child}}
     </div>
-    <span class="app-toolbar-filler"></span>
+    <div style="width:100%"><md-icon (click)="disconnect()" style="float:right" class="pointer">exit_to_app</md-icon></div>
+
   </md-toolbar>
   <div class="app-content" style="height: 90%;padding-right: 30px">
     <md-card>
       <md-list>
         <md-list-item *ngFor="let present of presents">
           <md-checkbox [checked]="present.santaName" [disabled]="!(!present.santaName)" (click)="(!present.santaName?openDialog(present.id):false)" ></md-checkbox>
-          <md-icon (click)="remove(present.id)" *ngIf="profile && profile.name == 'admin'">delete</md-icon>
+          <md-icon (click)="remove(present.id)" class="pointer" *ngIf="profile && profile.name == 'admin'">delete</md-icon>
           <img *ngIf="present.pics" md-list-avatar src="{{present.pics}}" alt="...">
           <h3 md-line> {{present.label}}</h3>
           <p md-line>
