@@ -146,7 +146,7 @@ export class ListComponent implements OnInit {
     <md-card>
       <p md-line>Après votre confirmation, ce présent ne sera plus selectionnable par une autre personne.
         <br/>Si vous le souhaitez, vous pouvez mettre votre nom.</p>
-      <input md-input #dialogInput>
+      <input md-input autofocus #dialogInput>
     </md-card>
     <md-dialog-actions>
       <button md-raised-button (click)="dialogRef.close({'answer':true, 'santaName': dialogInput.value})">Oui, je confirme</button>
@@ -163,12 +163,15 @@ export class PizzaDialog {
   template: `    
     <md-card><h1 md-line md-dialog-title>Ajouter un présent</h1></md-card><br/>
     <md-card>
-      <p md-line>Nom du cadeau (Obligatoire) :</p>
-      <input required mdInput #labelInput size="50">      
-      <p md-line>Lien web où acheter ou trouver des informations (facultatif) :</p>
-      <input md-input #linkInput size="50">      
-      <p md-line>Lien vers une image (facultatif) :</p>
-      <input md-input #picsInput size="50">
+      <md-input-container>
+        <input required mdInput #labelInput placeholder="Nom du cadeau" value="">
+      </md-input-container><br/>   
+      <md-input-container>
+        <input mdInput size="50" type="url" #linkInput placeholder="Lien web où acheter ou trouver des informations" value="">
+      </md-input-container><br/>
+      <md-input-container>
+        <input mdInput size="50" type="url" #picsInput placeholder="Lien vers une image" value="">
+      </md-input-container>
     </md-card>
     <md-dialog-actions>
       <button md-raised-button (click)="(labelInput.value?dialogRef.close({'answer':true, 'label': labelInput.value, 'link': linkInput.value, 'pics': picsInput.value}):'')">
