@@ -68,7 +68,7 @@ export class ListComponent implements OnInit {
           santaName:''
         };
         this.presentService.createPresent(newPresent).subscribe((p: Present) => {
-          this.presents.push(p);
+          this.refreshPresents();
         });
       }
       this.dialogCreationRef = null;
@@ -90,13 +90,7 @@ export class ListComponent implements OnInit {
   remove(id:string) {
     this.presentService.removePresent(id).subscribe(
       result => {
-        const newList:Present[] = [];
-        for(let p of this.presents){
-          if(p.id != id){
-            newList.push(p);
-          }
-        }
-        this.presents = newList;
+        this.refreshPresents();
       },
       error => {
         Observable.throw(error)
