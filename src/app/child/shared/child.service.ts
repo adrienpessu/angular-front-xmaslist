@@ -8,20 +8,20 @@ export class ChildService {
   getChildren(){
       return [
         {
-          'id': 'adrien',
-          'name': 'Adrien'
-        },
-        {
-          'id': 'melanie',
-          'name': 'Mélanie'
+          'id': 'eline',
+          'name': 'Éline'
         },
         {
           'id': 'yaelle',
           'name': 'Yaëlle'
         },
         {
-          'id': 'eline',
-          'name': 'Éline'
+          'id': 'melanie',
+          'name': 'Mélanie'
+        },
+        {
+          'id': 'adrien',
+          'name': 'Adrien'
         },
 
       ]

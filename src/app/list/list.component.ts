@@ -76,6 +76,17 @@ export class ListComponent implements OnInit {
     return false;
   }
 
+  uncheck(uid){
+    for(let present of this.presents){
+      if(present.id == uid){
+        present.santaName = '';
+        this.presentService.checkPresent(present).subscribe((e) => {
+          this.refreshPresents();
+        });
+      }
+    }
+  }
+
   refreshPresents(){
     this.presentService.getPresentByChild(this.childId).subscribe(
       presents => {

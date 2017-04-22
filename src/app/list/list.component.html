@@ -18,7 +18,7 @@
     <md-card>
       <md-list>
         <md-list-item *ngFor="let present of presents">
-          <md-checkbox [checked]="present.santaName" [disabled]="!(!present.santaName)" (click)="(!present.santaName?openDialog(present.id):false)" ></md-checkbox>
+          <md-checkbox [checked]="present.santaName" [disabled]="!(!present.santaName && profile.name != 'admin')" (click)="(profile.name != 'admin'?(!present.santaName?openDialog(present.id):false):uncheck(present.id))" ></md-checkbox>
           <md-icon (click)="remove(present.id)" class="pointer" *ngIf="profile && profile.name == 'admin'">delete</md-icon>
           <img *ngIf="present.pics" md-list-avatar src="{{present.pics}}" alt="...">
           <h3 md-line> {{present.label}}</h3>
