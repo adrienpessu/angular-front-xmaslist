@@ -47,6 +47,9 @@ export class ListComponent implements OnInit {
           }
         }
       }
+      else{
+        this.refreshPresents();
+      }
       this.dialogRef = null;
     });
     return false;
@@ -96,6 +99,22 @@ export class ListComponent implements OnInit {
         Observable.throw(error)
       }
     );
+  }
+
+  checkPresent(present) {
+    if(this.profile.name != 'admin'){
+      if(!present.santaName) {
+        this.openDialog(present.id)
+      }
+    }
+    else{
+      if(!present.santaName){
+        this.openDialog(present.id)
+      }
+      else{
+        this.uncheck(present.id)
+      }
+    }
   }
 
   remove(id:string) {
@@ -188,7 +207,7 @@ export class PizzaDialog {
       <button md-raised-button (click)="(labelInput.value?dialogRef.close({'answer':true, 'label': labelInput.value, 'link': linkInput.value, 'pics': picsInput.value}):'')">
         Créer
       </button>
-      <button md-raised-button md-dialog-close>Annuler</button>
+      <button md-raised-button md-dialog-close (click)="(labelInput.value?dialogRef.close({'answer':false, 'label': labelInput.value, 'link': linkInput.value, 'pics': picsInput.value}):'')">Annuler</button>
     </md-dialog-actions>
   `
 })
