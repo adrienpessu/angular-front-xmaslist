@@ -138,14 +138,6 @@ export class ListComponent implements OnInit {
     if(localStorage.getItem('profile') !== null){
 
       this.profile = JSON.parse(localStorage.getItem('profile'));
-      const jwtHelper: JwtHelper = new JwtHelper();
-      const expirationDate = jwtHelper.getTokenExpirationDate(localStorage.getItem('id_token'));
-      console.log(expirationDate);
-      console.log(new Date());
-      if(expirationDate < new Date()){
-        localStorage.clear();
-        this.router.navigate(['']);
-      }
 
       if(this.profile != null && (this.profile.name == 'invite'
         || this.profile.name == 'admin')){
@@ -161,6 +153,12 @@ export class ListComponent implements OnInit {
     this.router.events
       .filter(event => event instanceof NavigationEnd)
       .subscribe((e: NavigationEnd) => {
+        const jwtHelper: JwtHelper = new JwtHelper();
+        const expirationDate = jwtHelper.getTokenExpirationDate(localStorage.getItem('id_token'));
+        if(expirationDate < new Date()){
+          localStorage.clear();
+          this.router.navigate(['']);
+        }
         let childId = e.url.replace(/\/list\//g, '');
         if(childId == '/' || childId == '/list'){
           this.child = this.childService.getChildren()[0].name;
