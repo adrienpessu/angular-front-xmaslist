@@ -6,6 +6,7 @@ import {MdDialog, MdDialogRef, MdSnackBar} from '@angular/material';
 import {Observable} from "rxjs";
 import {Present} from "./shared/present.model";
 import {Profile} from "../login/shared/profile.model";
+import {JwtHelper} from "angular2-jwt";
 
 @Component({
   selector: 'app-list',
@@ -137,6 +138,14 @@ export class ListComponent implements OnInit {
     if(localStorage.getItem('profile') !== null){
 
       this.profile = JSON.parse(localStorage.getItem('profile'));
+      const jwtHelper: JwtHelper = new JwtHelper();
+      const expirationDate = jwtHelper.getTokenExpirationDate(localStorage.getItem('id_token'));
+      console.log(expirationDate);
+      console.log(new Date());
+      if(expirationDate < new Date()){
+        localStorage.clear();
+        this.router.navigate(['']);
+      }
 
       if(this.profile != null && (this.profile.name == 'invite'
         || this.profile.name == 'admin')){
