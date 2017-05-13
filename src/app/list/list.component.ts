@@ -154,10 +154,12 @@ export class ListComponent implements OnInit {
       .filter(event => event instanceof NavigationEnd)
       .subscribe((e: NavigationEnd) => {
         const jwtHelper: JwtHelper = new JwtHelper();
-        const expirationDate = jwtHelper.getTokenExpirationDate(localStorage.getItem('id_token'));
-        if(expirationDate < new Date()){
-          localStorage.clear();
-          this.router.navigate(['']);
+        if(!!localStorage.getItem('id_token')) {
+          const expirationDate = jwtHelper.getTokenExpirationDate(localStorage.getItem('id_token'));
+          if (expirationDate < new Date()) {
+            localStorage.clear();
+            this.router.navigate(['']);
+          }
         }
         let childId = e.url.replace(/\/list\//g, '');
         if(childId == '/' || childId == '/list'){
