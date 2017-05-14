@@ -68,8 +68,11 @@ export class ListComponent implements OnInit {
           label:result.label,
           childId: this.childId,
           url:result.link,
+          url2:result.link2,
+          url3:result.link3,
           pics: result.pics,
-          santaName:''
+          santaName:'',
+          order: 0
         };
         this.presentService.createPresent(newPresent).subscribe((p: Present) => {
           this.refreshPresents();
@@ -203,17 +206,28 @@ export class PizzaDialog {
     <md-card><h1 md-line md-dialog-title>Ajouter un présent</h1></md-card><br/>
     <md-card>
       <md-input-container>
-        <input required mdInput #labelInput placeholder="Nom du cadeau" value="">
+        <input required mdInput size="80%" #labelInput placeholder="Nom du cadeau" value="">
       </md-input-container><br/>   
       <md-input-container>
-        <input mdInput size="50" type="url" #linkInput placeholder="Lien web où acheter ou trouver des informations" value="">
+        <input mdInput size="80%" type="url" #linkInput placeholder="Lien web " value="">
       </md-input-container><br/>
+      <div [ngClass]="{'hide': (linkInput.value === '')}">
+        <md-input-container>
+          <input mdInput size="80%" type="url" #linkInputTwo placeholder="Lien web 2" value="">
+        </md-input-container><br/>
+      </div>
+      <div [ngClass]="{'hide': (linkInputTwo.value === '')}">
+        <md-input-container >
+          <input mdInput size="80%" type="url" #linkInputThree placeholder="Lien web 3" value="">
+        </md-input-container><br/>
+      </div>
       <md-input-container>
-        <input mdInput size="50" type="url" #picsInput placeholder="Lien vers une image" value="">
+        <input mdInput size="80%" type="url" #picsInput placeholder="Lien vers une image" value="">
       </md-input-container>
     </md-card>
     <md-dialog-actions>
-      <button md-raised-button (click)="(labelInput.value?dialogRef.close({'answer':true, 'label': labelInput.value, 'link': linkInput.value, 'pics': picsInput.value}):'')">
+      <button md-raised-button (click)="(labelInput.value?dialogRef.close({'answer':true, 'label': labelInput.value, 'link': linkInput.value
+      , 'link2': linkInputTwo.value, 'link3': linkInputThree.value, 'pics': picsInput.value}):'')">
         Créer
       </button>
       <button md-raised-button md-dialog-close (click)="(labelInput.value?dialogRef.close({'answer':false, 'label': labelInput.value, 'link': linkInput.value, 'pics': picsInput.value}):'')">Annuler</button>
