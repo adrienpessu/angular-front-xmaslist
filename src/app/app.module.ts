@@ -1,33 +1,76 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { HttpModule } from '@angular/http';
-import { MaterialModule } from '@angular/material';
+
+import {routing} from './app.routing';
 
 import { AppComponent } from './app.component';
-import {CreationDialog, ListComponent, PizzaDialog} from './list/list.component';
-import {routing} from './app.routing';
-import { MenuComponent } from './child/menu/menu.component';
-import { LoginComponent } from './login/login.component'
+import {HeaderComponent} from "./header/header.component";
+import {LoginComponent} from "./login/login.component";
+import {CreationDialog, ListComponent, PizzaDialog} from "./list/list.component";
+import {MenuComponent} from "./child/menu/menu.component";
+import {HttpModule} from "@angular/http";
+import {FormsModule} from "@angular/forms";
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import {AuthGuard} from "./auth.guard";
+import {
+  MdButtonModule, MdButtonToggleModule, MdCardModule, MdCheckboxModule, MdCommonModule, MdCoreModule, MdDialogModule,
+  MdIconModule, MdIconRegistry,
+  MdInputModule, MdLineModule,
+  MdListModule,
+  MdSidenavModule, MdSliderModule,
+  MdToolbarModule
+} from "@angular/material";
+import {AuthService} from "./auth.service";
 
 @NgModule({
   declarations: [
     AppComponent,
+    HeaderComponent,
+    LoginComponent,
     ListComponent,
     MenuComponent,
     PizzaDialog,
-    CreationDialog,
-    LoginComponent
+    CreationDialog
   ],
-  entryComponents: [PizzaDialog, CreationDialog],
   imports: [
-    BrowserModule,
+    BrowserAnimationsModule,
     FormsModule,
     HttpModule,
-    MaterialModule.forRoot(),
-    routing
+    BrowserModule,
+    routing,
+    MdLineModule,
+    MdIconModule,
+    MdButtonToggleModule,
+    MdButtonModule,
+    MdCheckboxModule,
+    MdInputModule,
+    MdDialogModule,
+    MdToolbarModule,
+    MdListModule,
+    MdSidenavModule,
+    MdCardModule,
+    MdCommonModule,
+    MdCoreModule,
+    MdButtonToggleModule,
+    MdSliderModule,
+    MdSidenavModule
   ],
-  providers: [],
+  exports: [MdIconModule,
+    MdButtonModule,
+    MdCheckboxModule,
+    MdInputModule,
+    MdDialogModule,
+    MdToolbarModule,
+    MdListModule,
+    MdSidenavModule,
+    MdCardModule,
+    MdCommonModule,
+    MdCoreModule,
+    MdButtonToggleModule,
+    MdSliderModule,
+    MdSidenavModule],
+  entryComponents: [PizzaDialog, CreationDialog],
+  providers: [AuthGuard, AuthService, MdIconRegistry],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
