@@ -1,57 +1,24 @@
-md-sidenav-layout.m2app-dark {
-  background: black;
+.page {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 }
 
-.app-content {
-  padding: 20px;
+.page-header {
+  flex: 0 0 auto;
+  background-color: #dcdcdc;
 }
 
-.app-content md-card {
-  margin: 20px;
-}
-
-.app-sidenav {
-  padding: 10px;
-  min-width: 100px;
-}
-
-.app-content md-checkbox {
-  margin: 10px;
-}
-
-.app-toolbar-filler {
+.page-content {
   flex: 1 1 auto;
+  position: relative;/* need this to position inner content */
+  overflow-y: auto;
 }
 
-.app-toolbar-menu {
-  padding: 0 14px 0 14px;
-  color: white;
+.page-footer {
+  flex: 0 0 auto;
 }
 
-.app-icon-button {
-  box-shadow: none;
-  user-select: none;
-  background: none;
-  border: none;
+.pointer{
   cursor: pointer;
-  filter: none;
-  font-weight: normal;
-  height: auto;
-  line-height: inherit;
-  margin: 0;
-  min-width: 0;
-  padding: 0;
-  text-align: left;
-  text-decoration: none;
-}
-
-.app-action {
-  display: inline-block;
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-}
-
-.app-input-icon {
-  font-size: 16px;
 }

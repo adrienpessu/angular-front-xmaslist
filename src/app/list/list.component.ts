@@ -39,7 +39,7 @@ export class ListComponent implements OnInit {
 
     this.dialogRef.afterClosed().subscribe(result => {
       if(result && result.answer){
-        for(let present of this.presents){
+        for (const present of this.presents) {
           if(present.id == uid){
             present.santaName = (result.santaName?result.santaName:'Père noël');
             this.presentService.checkPresent(present).subscribe((e) => {
@@ -48,7 +48,7 @@ export class ListComponent implements OnInit {
           }
         }
       }
-      else{
+      else {
         this.refreshPresents();
       }
       this.dialogRef = null;
@@ -63,15 +63,15 @@ export class ListComponent implements OnInit {
 
     this.dialogCreationRef.afterClosed().subscribe(result => {
       if(result && result.answer){
-        let newPresent: Present = {
+        const newPresent: Present = {
           id: '',
-          label:result.label,
+          label: result.label,
           childId: this.childId,
-          url:result.link,
-          url2:result.link2,
-          url3:result.link3,
+          url: result.link,
+          url2: result.link2,
+          url3: result.link3,
           pics: result.pics,
-          santaName:'',
+          santaName: '',
           order: 0
         };
         this.presentService.createPresent(newPresent).subscribe((p: Present) => {
@@ -84,7 +84,7 @@ export class ListComponent implements OnInit {
   }
 
   uncheck(uid){
-    for(let present of this.presents){
+    for(const present of this.presents){
       if(present.id == uid){
         present.santaName = '';
         this.presentService.checkPresent(present).subscribe((e) => {
@@ -92,6 +92,13 @@ export class ListComponent implements OnInit {
         });
       }
     }
+  }
+
+  isAdmin() {
+    if(!!this.profile && this.profile.name === 'admin'){
+      return true;
+    }
+    return false;
   }
 
   refreshPresents(){
@@ -106,7 +113,7 @@ export class ListComponent implements OnInit {
   }
 
   checkPresent(present) {
-    if(this.profile.name != 'admin'){
+    if(this.profile.name !== 'admin'){
       if(!present.santaName) {
         this.openDialog(present.id)
       }
@@ -121,7 +128,7 @@ export class ListComponent implements OnInit {
     }
   }
 
-  remove(id:string) {
+  remove(id: string) {
     this.presentService.removePresent(id).subscribe(
       result => {
         this.refreshPresents();
@@ -156,16 +163,8 @@ export class ListComponent implements OnInit {
     this.router.events
       .filter(event => event instanceof NavigationEnd)
       .subscribe((e: NavigationEnd) => {
-        const jwtHelper: JwtHelper = new JwtHelper();
-        if(!!localStorage.getItem('id_token')) {
-          const expirationDate = jwtHelper.getTokenExpirationDate(localStorage.getItem('id_token'));
-          if (expirationDate < new Date()) {
-            localStorage.clear();
-            this.router.navigate(['']);
-          }
-        }
         let childId = e.url.replace(/\/list\//g, '');
-        if(childId == '/' || childId == '/list'){
+        if(childId === '/' || childId === '/list') {
           this.child = this.childService.getChildren()[0].name;
           childId = this.childService.getChildren()[0].id;
         }
@@ -202,12 +201,12 @@ export class PizzaDialog {
 
 @Component({
   selector: 'creation-dialog',
-  template: `    
+  template: `
     <md-card><h1 md-line md-dialog-title>Ajouter un présent</h1></md-card><br/>
     <md-card>
       <md-input-container>
         <input required mdInput size="80%" #labelInput placeholder="Nom du cadeau" value="">
-      </md-input-container><br/>   
+      </md-input-container><br/>
       <md-input-container>
         <input mdInput size="80%" type="url" #linkInput placeholder="Lien web " value="">
       </md-input-container><br/>
@@ -237,3 +236,5 @@ export class PizzaDialog {
 export class CreationDialog {
   constructor(public dialogRef: MdDialogRef<CreationDialog>) { }
 }
+
+

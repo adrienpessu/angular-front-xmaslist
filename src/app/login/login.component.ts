@@ -23,7 +23,6 @@ export class LoginComponent implements OnInit {
     if(!this.user){
       this.user = 'invite';
     }
-    console.log(this.user);
     this.loginService.giveProfile(this.user, this.password).subscribe(result => {
       if(result && result.name && result.token){
         localStorage.setItem('profile', JSON.stringify(result));

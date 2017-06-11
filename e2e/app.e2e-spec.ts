@@ -1,14 +1,16 @@
-import { AngularFrontXmaslistPage } from './app.po';
+import { RefactorPage } from './app.po';
 
-describe('angular-front-xmaslist App', function() {
-  let page: AngularFrontXmaslistPage;
+describe('refactor App', () => {
+  let page: RefactorPage;
 
   beforeEach(() => {
-    page = new AngularFrontXmaslistPage();
+    page = new RefactorPage();
   });
 
-  it('should display message saying app works', () => {
+  it('should display welcome message', done => {
     page.navigateTo();
-    expect(page.getParagraphText()).toEqual('app works!');
+    page.getParagraphText()
+      .then(msg => expect(msg).toEqual('Welcome to app!!'))
+      .then(done, done.fail);
   });
 });
