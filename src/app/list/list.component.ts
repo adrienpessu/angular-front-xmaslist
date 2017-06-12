@@ -169,7 +169,9 @@ export class ListComponent implements OnInit {
           childId = this.childService.getChildren()[0].id;
         }
         else {
-          this.child = this.childService.getChildrenAsMap()[childId];
+          this.childService.getChildren().subscribe((childs: any[]) => {
+              childs.filter(child => child.id === childId).forEach(child => this.child = child);
+            });
         }
 
         this.childId = childId;

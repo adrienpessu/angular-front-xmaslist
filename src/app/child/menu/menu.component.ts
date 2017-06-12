@@ -15,7 +15,7 @@ export class MenuComponent implements OnInit {
   constructor(private childService: ChildService) { }
 
   ngOnInit() {
-    this.children = this.childService.getChildren();
+    this.childService.getChildren().subscribe((childs: any[]) => this.children = childs);
   }
 
 }
