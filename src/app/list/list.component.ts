@@ -170,7 +170,7 @@ export class ListComponent implements OnInit {
         }
         else {
           this.childService.getChildren().subscribe((childs: any[]) => {
-              childs.filter(child => child.id === childId).forEach(child => this.child = child);
+              childs.filter(child => child.id === childId).forEach(child => this.child = child.name);
             });
         }
 
