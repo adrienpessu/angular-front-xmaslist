@@ -1,5 +1,5 @@
 import {Component, OnInit, Optional} from '@angular/core';
-import {Router, NavigationEnd} from "@angular/router";
+import {Router, NavigationEnd, Params, ActivatedRoute} from "@angular/router";
 import {ChildService} from "../child/shared/child.service";
 import {PresentService} from "./shared/present.service";
 import {MdDialog, MdDialogRef, MdSnackBar} from '@angular/material';
@@ -19,9 +19,11 @@ export class ListComponent implements OnInit {
 
   presents: Present[];
 
-  child: string = 'adrien';
+  childs: any[] = [];
 
-  childId: string = 'adrien';
+  child: string;
+
+  childId: string;
 
   profile: Profile;
 
@@ -29,7 +31,7 @@ export class ListComponent implements OnInit {
 
   dialogCreationRef: MdDialogRef<CreationDialog>;
 
-  constructor(private router: Router, private childService: ChildService
+  constructor(private router: Router, private route: ActivatedRoute,private childService: ChildService
     , private presentService: PresentService, public dialog: MdDialog) { }
 
   openDialog(uid: string) {
@@ -160,25 +162,32 @@ export class ListComponent implements OnInit {
     else{
       this.router.navigate(['']);
     }
-    this.router.events
-      .filter(event => event instanceof NavigationEnd)
-      .subscribe((e: NavigationEnd) => {
-        let childId = e.url.replace(/\/list\//g, '');
-        if(childId === '/' || childId === '/list') {
-          this.child = this.childService.getChildren()[0].name;
-          childId = this.childService.getChildren()[0].id;
-        }
-        else {
-          this.childService.getChildren().subscribe((childs: any[]) => {
-              childs.filter(child => child.id === childId).forEach(child => this.child = child.name);
+
+    this.childService.getChildren().subscribe((childs: any[]) => {
+      this.childs = childs;
+      this.child = this.childs[0].name;
+      this.childId = this.childs[0].id;
+      this.refreshPresents();
+    });
+
+    this.route.params
+    // (+) converts string 'id' to a number
+      .subscribe((params: Params) => {
+        this.childService.getChildren().subscribe((childs: any[]) => {
+          this.childs = childs;
+          if(!!params['name']){
+            this.childs.filter(child => child.id === params['name']).forEach(child => {
+              this.child = child.name;
+              this.childId = child.id;
             });
-        }
-
-        this.childId = childId;
-
-        this.refreshPresents();
+          }
+          else{
+            this.child = this.childs[0].name;
+            this.childId = this.childs[0].id;
+          }
+          this.refreshPresents();
+        });
       });
-
   }
 }
 
