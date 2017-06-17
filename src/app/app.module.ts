@@ -16,7 +16,7 @@ import {
   MdButtonModule, MdButtonToggleModule, MdCardModule, MdCheckboxModule, MdCommonModule, MdCoreModule, MdDialogModule,
   MdIconModule, MdIconRegistry,
   MdInputModule, MdLineModule,
-  MdListModule,
+  MdListModule, MdProgressBarModule,
   MdSidenavModule, MdSliderModule, MdSnackBar, MdSnackBarModule,
   MdToolbarModule
 } from "@angular/material";
@@ -54,7 +54,8 @@ import {AuthService} from "./auth.service";
     MdButtonToggleModule,
     MdSliderModule,
     MdSidenavModule,
-    MdSnackBarModule
+    MdSnackBarModule,
+    MdProgressBarModule
   ],
   exports: [MdIconModule,
     MdButtonModule,
@@ -69,7 +70,8 @@ import {AuthService} from "./auth.service";
     MdCoreModule,
     MdButtonToggleModule,
     MdSliderModule,
-    MdSidenavModule],
+    MdSidenavModule,
+    MdProgressBarModule],
   entryComponents: [PizzaDialog, CreationDialog],
   providers: [AuthGuard, AuthService, MdIconRegistry],
   bootstrap: [AppComponent]

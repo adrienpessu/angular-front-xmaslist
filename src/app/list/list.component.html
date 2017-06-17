@@ -5,7 +5,11 @@
   </md-sidenav>
 
   <div class="page">
-    <div class="page-header"><app-header (onToggleSideNav)="sideNav.toggle()" [childName]="child"></app-header></div>
+    <div class="page-header">
+      <app-header (onToggleSideNav)="sideNav.toggle()" [childName]="child"></app-header>
+      <md-progress-bar *ngIf="loading" mode="indeterminate" color="primary"></md-progress-bar>
+      <div style="height: 5px" *ngIf="!loading"></div>
+    </div>
     <div class="page-content">
       <div class="mainContainer">
         <md-card>

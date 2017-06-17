@@ -31,6 +31,8 @@ export class ListComponent implements OnInit {
 
   dialogCreationRef: MdDialogRef<CreationDialog>;
 
+  loading: boolean = false;
+
   constructor(private router: Router, private route: ActivatedRoute,private childService: ChildService
     , private presentService: PresentService, public dialog: MdDialog) { }
 
@@ -44,8 +46,10 @@ export class ListComponent implements OnInit {
         for (const present of this.presents) {
           if(present.id == uid){
             present.santaName = (result.santaName?result.santaName:'Père noël');
+            this.loading = true;
             this.presentService.checkPresent(present).subscribe((e) => {
               this.refreshPresents();
+              this.loading = false;
             });
           }
         }
@@ -76,8 +80,10 @@ export class ListComponent implements OnInit {
           santaName: '',
           order: 0
         };
+        this.loading = true;
         this.presentService.createPresent(newPresent).subscribe((p: Present) => {
           this.refreshPresents();
+          this.loading = false;
         });
       }
       this.dialogCreationRef = null;
@@ -89,8 +95,10 @@ export class ListComponent implements OnInit {
     for(const present of this.presents){
       if(present.id == uid){
         present.santaName = '';
+        this.loading = true;
         this.presentService.checkPresent(present).subscribe((e) => {
           this.refreshPresents();
+          this.loading = false;
         });
       }
     }
@@ -131,9 +139,11 @@ export class ListComponent implements OnInit {
   }
 
   remove(id: string) {
+    this.loading = true;
     this.presentService.removePresent(id).subscribe(
       result => {
         this.refreshPresents();
+        this.loading = false;
       },
       error => {
         Observable.throw(error)
@@ -162,17 +172,19 @@ export class ListComponent implements OnInit {
     else{
       this.router.navigate(['']);
     }
-
+    this.loading = true;
     this.childService.getChildren().subscribe((childs: any[]) => {
       this.childs = childs;
       this.child = this.childs[0].name;
       this.childId = this.childs[0].id;
       this.refreshPresents();
+      this.loading = false;
     });
 
     this.route.params
     // (+) converts string 'id' to a number
       .subscribe((params: Params) => {
+        this.loading = true;
         this.childService.getChildren().subscribe((childs: any[]) => {
           this.childs = childs;
           if(!!params['name']){
@@ -186,6 +198,8 @@ export class ListComponent implements OnInit {
             this.childId = this.childs[0].id;
           }
           this.refreshPresents();
+
+          this.loading = false;
         });
       });
   }
