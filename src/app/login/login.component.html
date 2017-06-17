@@ -3,7 +3,7 @@
     justify-content: center;
     flex-direction: column;" (keyup)="onEnterKey($event)">
   <md-input-container>
-  <input  autofocus mdInput
+  <input #passwordField autofocus mdInput MdInputDirective
     [(ngModel)]="password"
     type="password"
     placeholder="Mot de passe"

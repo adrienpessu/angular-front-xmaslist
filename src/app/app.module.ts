@@ -17,7 +17,7 @@ import {
   MdIconModule, MdIconRegistry,
   MdInputModule, MdLineModule,
   MdListModule,
-  MdSidenavModule, MdSliderModule,
+  MdSidenavModule, MdSliderModule, MdSnackBar, MdSnackBarModule,
   MdToolbarModule
 } from "@angular/material";
 import {AuthService} from "./auth.service";
@@ -53,7 +53,8 @@ import {AuthService} from "./auth.service";
     MdCoreModule,
     MdButtonToggleModule,
     MdSliderModule,
-    MdSidenavModule
+    MdSidenavModule,
+    MdSnackBarModule
   ],
   exports: [MdIconModule,
     MdButtonModule,
