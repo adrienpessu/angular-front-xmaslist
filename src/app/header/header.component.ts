@@ -12,6 +12,9 @@ export class HeaderComponent implements OnInit {
   @Input()
   childName: string = '';
 
+  @Input()
+  displayToggleButton: boolean = true;
+
   @Output() onToggleSideNav = new EventEmitter<boolean>();
 
   constructor(private router: Router){}

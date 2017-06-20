@@ -1,5 +1,5 @@
 <md-toolbar color="primary" style="background-color: #F44336">
-  <div md-mini-fab style="cursor: pointer" class="app-icon-button" (click)="toogleSideNav()">
+  <div *ngIf="displayToggleButton" md-mini-fab style="cursor: pointer" class="app-icon-button" (click)="toogleSideNav()">
     <i class="material-icons app-toolbar-menu">menu</i>
   </div>
   <div style="margin-left: 10px;margin-top: -5px;">

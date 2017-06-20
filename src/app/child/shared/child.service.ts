@@ -6,7 +6,7 @@ import {Response, Http, Headers, RequestOptions} from "@angular/http";
 @Injectable()
 export class ChildService {
 
-  CHILDS_URL = `${environment.API_ACCOUNT_URL}/adrien.json`;
+  CHILDS_URL = `${environment.API_ACCOUNT_URL}/adrien_fam.json`;
 
   constructor(private http:Http) { }
 
