@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {ChildService} from "../shared/child.service";
-import {Child} from "../shared/child.model";
+import {ChildService} from '../shared/child.service';
+import {Child} from '../shared/child.model';
 
 @Component({
   selector: 'app-menu',

@@ -1,6 +1,5 @@
-import {Component, EventEmitter, Input, OnInit, Output} from "@angular/core";
-import {NavigationEnd, Router} from "@angular/router";
-import {AuthGuard} from "../auth.guard";
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -10,20 +9,20 @@ import {AuthGuard} from "../auth.guard";
 export class HeaderComponent implements OnInit {
 
   @Input()
-  childName: string = '';
+  childName = '';
 
   @Input()
-  displayToggleButton: boolean = true;
+  displayToggleButton = true;
 
   @Output() onToggleSideNav = new EventEmitter<boolean>();
 
-  constructor(private router: Router){}
+  constructor( private router: Router ) {}
 
-  toogleSideNav(){
+  toogleSideNav() {
     this.onToggleSideNav.emit();
   }
 
-  disconnect(){
+  disconnect() {
     localStorage.clear();
     this.router.navigate(['']);
   }

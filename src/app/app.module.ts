@@ -4,14 +4,14 @@ import { NgModule } from '@angular/core';
 import {routing} from './app.routing';
 
 import { AppComponent } from './app.component';
-import {HeaderComponent} from "./header/header.component";
-import {LoginComponent} from "./login/login.component";
-import {CreationDialog, ListComponent, PizzaDialog} from "./list/list.component";
-import {MenuComponent} from "./child/menu/menu.component";
-import {HttpModule} from "@angular/http";
-import {FormsModule} from "@angular/forms";
-import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
-import {AuthGuard} from "./auth.guard";
+import {HeaderComponent} from './header/header.component';
+import {LoginComponent} from './login/login.component';
+import {ListComponent} from './list/list.component';
+import {MenuComponent} from './child/menu/menu.component';
+import {HttpModule} from '@angular/http';
+import {FormsModule} from '@angular/forms';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {AuthGuard} from './auth.guard';
 import {
   MdButtonModule, MdButtonToggleModule, MdCardModule, MdCheckboxModule, MdCommonModule, MdCoreModule, MdDialogModule,
   MdIconModule, MdIconRegistry,
@@ -19,8 +19,10 @@ import {
   MdListModule, MdProgressBarModule,
   MdSidenavModule, MdSliderModule, MdSnackBar, MdSnackBarModule,
   MdToolbarModule
-} from "@angular/material";
-import {AuthService} from "./auth.service";
+} from '@angular/material';
+import {AuthService} from './auth.service';
+import { CheckdialogComponent } from './list/checkdialog/checkdialog.component';
+import { CreationdialogComponent } from './list/creationdialog/creationdialog.component';
 
 @NgModule({
   declarations: [
@@ -29,8 +31,10 @@ import {AuthService} from "./auth.service";
     LoginComponent,
     ListComponent,
     MenuComponent,
-    PizzaDialog,
-    CreationDialog
+    CheckdialogComponent,
+    CreationdialogComponent,
+    CheckdialogComponent,
+    CreationdialogComponent
   ],
   imports: [
     BrowserAnimationsModule,
@@ -72,7 +76,7 @@ import {AuthService} from "./auth.service";
     MdSliderModule,
     MdSidenavModule,
     MdProgressBarModule],
-  entryComponents: [PizzaDialog, CreationDialog],
+  entryComponents: [CheckdialogComponent, CreationdialogComponent],
   providers: [AuthGuard, AuthService, MdIconRegistry],
   bootstrap: [AppComponent]
 })

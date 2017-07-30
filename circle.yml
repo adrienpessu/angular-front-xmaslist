@@ -19,6 +19,6 @@ jobs:
       - run:
           name: angular-build
           command: yarn ng -- build --prod --aot --no-progress
-#      - run:
-#          name: angular-lint
-#          command: yarn lint
+      - run:
+          name: angular-lint
+          command: yarn lint

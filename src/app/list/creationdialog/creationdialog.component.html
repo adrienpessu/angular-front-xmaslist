@@ -1,0 +1,30 @@
+<md-card><h1 md-line md-dialog-title>Ajouter un présent</h1></md-card><br/>
+<md-card>
+    <md-input-container>
+        <input required mdInput size='80%' #labelInput placeholder='Nom du cadeau' value=''>
+    </md-input-container><br/>
+    <md-input-container>
+        <input mdInput size='80%' type='url' #linkInput placeholder='Lien web ' value=''>
+    </md-input-container><br/>
+    <div [ngClass]="{'hide': (linkInput.value === '')}">
+    <md-input-container>
+        <input mdInput size='80%' type='url' #linkInputTwo placeholder='Lien web 2' value=''>
+    </md-input-container><br/>
+    </div>
+    <div [ngClass]="{'hide': (linkInputTwo.value === '')}">
+    <md-input-container >
+        <input mdInput size='80%' type='url' #linkInputThree placeholder='Lien web 3' value=''>
+    </md-input-container><br/>
+    </div>
+    <md-input-container>
+        <input mdInput size='80%' type='url' #picsInput placeholder='Lien vers une image' value=''>
+    </md-input-container>
+</md-card>
+<md-dialog-actions>
+    <button md-raised-button (click)="create(labelInput.value, linkInput.value, linkInputTwo.value, linkInputThree.value, picsInput.value)">
+        Créer
+    </button>
+    <button md-raised-button md-dialog-close (click)="cancel()">
+        Annuler
+    </button>
+</md-dialog-actions>
