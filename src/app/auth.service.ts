@@ -16,7 +16,7 @@ export class AuthService {
   }
 
   authenticated() {
-    if(localStorage.getItem('user')){
+    if (localStorage.getItem('user')) {
       return true;
     }
     return false;

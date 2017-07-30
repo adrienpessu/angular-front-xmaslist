@@ -1,6 +1,6 @@
 export class Profile {
   id: string;
-  name:string;
+  name: string;
   token: string;
 }
 
