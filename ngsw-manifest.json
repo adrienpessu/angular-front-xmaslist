@@ -1,0 +1,31 @@
+{
+  "static.ignore": [
+    "\\.js\\.map$",
+    "^(?:/|\\\\)assets(?:/|\\\\)images(?:/|\\\\).*(?:/|\\\\)_unused(?:/|\\\\)",
+    "^(?:/|\\\\)generated(?:/|\\\\)(?:docs(?:/|\\\\)(?!api(?:/|\\\\)api-list\\.json).*|images(?:/|\\\\)(?!marketing(?:/|\\\\)).*|live-examples|zips)(?:/|\\\\)"
+  ],
+  "static.versioned": [
+    "\\.[0-9a-z]{20}\\."
+  ],
+  "routing": {
+    "index": "/index.html",
+    "routes": {
+      "/": {
+        "prefix": false
+      }
+    }
+  },
+  "push": {
+    "showNotifications": true,
+    "backgroundOnly": false
+  },
+  "external": {
+    "urls": [
+      {"url": "https://fonts.googleapis.com/icon?family=Material+Icons"},
+      {"url": "https://fonts.googleapis.com/css?family=Roboto|Roboto+Mono"},
+      {"url": "https://ajax.googleapis.com/ajax/libs/hammerjs/2.0.8/hammer.min.js"},
+      {"url": "https://cdnjs.cloudflare.com/ajax/libs/web-animations/2.2.5/web-animations.min.js"},
+      {"url": "https://gift-account.adrien.me/adrien.json"}
+    ]
+  }
+}
