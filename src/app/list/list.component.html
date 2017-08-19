@@ -1,12 +1,12 @@
 <md-sidenav-container style="height: 100%">
 
-  <md-sidenav #sideNav mode="side" class="app-sidenav" [opened]="(!!childs && childs.length > 1)">
+  <md-sidenav #sideNav mode="side" class="app-sidenav" [opened]="(!!state.childs && state.childs.length > 1)">
     <app-menu></app-menu>
   </md-sidenav>
 
   <div class="page">
     <div class="page-header">
-      <app-header [displayToggleButton]="(!!childs && childs.length > 1)" (onToggleSideNav)="sideNav.toggle()" [childName]="child"></app-header>
+      <app-header [displayToggleButton]="(!!state.childs && state.childs.length > 1)" (onToggleSideNav)="sideNav.toggle()" [childName]="child"></app-header>
       <md-progress-bar *ngIf="loading" mode="indeterminate" color="primary"></md-progress-bar>
       <div style="height: 5px" *ngIf="!loading"></div>
     </div>
@@ -14,7 +14,7 @@
       <div class="mainContainer">
         <md-card>
           <md-list>
-            <md-list-item *ngFor="let present of presents">
+            <md-list-item *ngFor="let present of state.presents">
               <md-checkbox [checked]="present.santaName" [disabled]="(!!present.santaName && !isAdmin())" (click)="checkPresent(present)" ></md-checkbox>
               <md-icon (click)="remove(present.id)" class="pointer" *ngIf="isAdmin()">delete</md-icon>
               <img *ngIf="present.pics" md-list-avatar src="{{present.pics}}" alt="...">
@@ -27,7 +27,7 @@
               </p>
               <md-divider></md-divider>
             </md-list-item>
-            <h3 *ngIf="!!presents && presents.length === 0 && !loading">Cette liste est vide :(</h3>
+            <h3 *ngIf="!!state.presents && state.presents.length === 0 && !loading">Cette liste est vide :(</h3>
           </md-list>
         </md-card>
       </div>
