@@ -8,19 +8,19 @@ import {Present} from './shared/present.model';
 import {Profile} from '../login/shared/profile.model';
 import {CheckdialogComponent} from './checkdialog/checkdialog.component';
 import {CreationdialogComponent} from './creationdialog/creationdialog.component';
+import {Store} from '@ngrx/store';
+import {ListState} from './list.reducer';
+import * as action from './list.action';
 
 @Component({
     selector: 'app-list',
     templateUrl: './list.component.html',
     styleUrls: ['./list.component.css'],
     providers: [ChildService, PresentService]
-
 })
 export class ListComponent implements OnInit {
 
-    presents: Present[];
-
-    childs: any[] = [];
+    state: any;
 
     child: string;
 
@@ -34,8 +34,11 @@ export class ListComponent implements OnInit {
 
     loading = false;
 
-    constructor(private router: Router, private route: ActivatedRoute, private childService: ChildService
-        , private presentService: PresentService, public dialog: MdDialog) {
+    constructor(private store: Store<ListState>, private router: Router, private route: ActivatedRoute
+        , private childService: ChildService, private presentService: PresentService, public dialog: MdDialog) {
+        this.store.select('list').subscribe(s => {
+            this.state = s;
+        });
     }
 
     openDialog(uid: string) {
@@ -45,13 +48,19 @@ export class ListComponent implements OnInit {
 
         this.dialogRef.afterClosed().subscribe(result => {
             if (result && result.answer) {
-                for (const present of this.presents) {
+                for (const present of this.state.presents) {
                     if (present.id === uid) {
                         present.santaName = (result.santaName ? result.santaName : 'Père noël');
                         this.loading = true;
+                        this.store.dispatch(new action.CheckPresentAction());
                         this.presentService.checkPresent(present).subscribe((e) => {
+                            this.store.dispatch(new action.CheckPresentSuccessAction());
                             this.refreshPresents();
                             this.loading = false;
+                        },
+                        error => {
+                            this.store.dispatch(new action.AddPresentFailAction());
+                            Observable.throw(error)
                         });
                     }
                 }
@@ -82,9 +91,15 @@ export class ListComponent implements OnInit {
                     order: 0
                 };
                 this.loading = true;
+                this.store.dispatch(new action.AddPresentAction());
                 this.presentService.createPresent(newPresent).subscribe((p: Present) => {
+                    this.store.dispatch(new action.AddPresentSuccessAction());
                     this.refreshPresents();
                     this.loading = false;
+                },
+                error => {
+                    this.store.dispatch(new action.AddPresentFailAction());
+                    Observable.throw(error)
                 });
             }
             this.dialogCreationRef = null;
@@ -93,13 +108,19 @@ export class ListComponent implements OnInit {
     }
 
     uncheck(uid) {
-        for (const present of this.presents) {
+        for (const present of this.state.presents) {
             if (present.id === uid) {
                 present.santaName = '';
                 this.loading = true;
+                this.store.dispatch(new action.UnCheckPresentAction());
                 this.presentService.checkPresent(present).subscribe((e) => {
+                    this.store.dispatch(new action.UnCheckPresentSuccessAction());
                     this.refreshPresents();
                     this.loading = false;
+                },
+                error => {
+                    this.store.dispatch(new action.UnCheckPresentFailAction());
+                    Observable.throw(error)
                 });
             }
         }
@@ -113,11 +134,13 @@ export class ListComponent implements OnInit {
     }
 
     refreshPresents() {
+        this.store.dispatch(new action.GetPresentsByChildAction());
         this.presentService.getPresentByChild(this.childId).subscribe(
             presents => {
-                this.presents = presents;
+                this.store.dispatch(new action.GetPresentsByChildSuccessAction(presents));
             },
             error => {
+                this.store.dispatch(new action.GetPresentsByChildFailAction());
                 Observable.throw(error)
             }
         );
@@ -139,12 +162,15 @@ export class ListComponent implements OnInit {
 
     remove(id: string) {
         this.loading = true;
+        this.store.dispatch(new action.RemovePresentAction());
         this.presentService.removePresent(id).subscribe(
             result => {
+                this.store.dispatch(new action.RemovePresentSuccessAction());
                 this.refreshPresents();
                 this.loading = false;
             },
             error => {
+                this.store.dispatch(new action.RemovePresentFailAction());
                 Observable.throw(error)
             }
         );
@@ -157,46 +183,55 @@ export class ListComponent implements OnInit {
 
     ngOnInit() {
         if (localStorage.getItem('profile') !== null) {
-
             this.profile = JSON.parse(localStorage.getItem('profile'));
 
-            if (this.profile != null && (this.profile.name === 'invite'
-                    || this.profile.name === 'admin')) {
-                console.log('logged');
-            } else {
+            if (this.profile == null || ['invite', 'admin'].indexOf(this.profile.name) < 0) {
                 this.router.navigate(['']);
             }
         } else {
             this.router.navigate(['']);
         }
+
         this.loading = true;
+        this.store.dispatch(new action.GetChildsAction());
         this.childService.getChildren().subscribe((childs: any[]) => {
-            this.childs = childs;
-            this.child = this.childs[0].name;
-            this.childId = this.childs[0].id;
-            this.refreshPresents();
-            this.loading = false;
-        });
+                this.store.dispatch(new action.GetChildsSuccessAction(childs));
+                this.child = childs[0].name;
+                this.childId = childs[0].id;
+                this.refreshPresents();
+                this.loading = false;
+            },
+            error => {
+                this.store.dispatch(new action.GetChildsFailAction());
+                Observable.throw(error)
+            }
+        );
 
         this.route.params
         // (+) converts string 'id' to a number
             .subscribe((params: Params) => {
-                this.loading = true;
-                this.childService.getChildren().subscribe((childs: any[]) => {
-                    this.childs = childs;
-                    if (!!params['name']) {
-                        this.childs.filter(child => child.id === params['name']).forEach(child => {
-                            this.child = child.name;
-                            this.childId = child.id;
-                        });
-                    } else {
-                        this.child = this.childs[0].name;
-                        this.childId = this.childs[0].id;
-                    }
-                    this.refreshPresents();
+                    this.loading = true;
+                    this.store.dispatch(new action.GetChildsAction());
+                    this.childService.getChildren().subscribe((childs: any[]) => {
+                        this.store.dispatch(new action.GetChildsSuccessAction(childs));
+                        if (!!params['name']) {
+                            childs.filter(child => child.id === params['name']).forEach(child => {
+                                this.child = child.name;
+                                this.childId = child.id;
+                            });
+                        } else {
+                            this.child = childs[0].name;
+                            this.childId = childs[0].id;
+                        }
+                        this.refreshPresents();
 
-                    this.loading = false;
-                });
-            });
+                        this.loading = false;
+                    });
+                },
+                error => {
+                    this.store.dispatch(new action.GetChildsFailAction());
+                    Observable.throw(error)
+                }
+            );
     }
 }
