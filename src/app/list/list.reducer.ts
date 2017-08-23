@@ -22,6 +22,25 @@ export const listReducer: ActionReducer<Object> = (state: ListState = initialSta
             return Object.assign({}, state, {
                 childs: action.payload
             });
+        case list.ActionTypes.ADD_PRESENTS_SUCCESS:
+            const addState = Object.assign({}, state);
+            addState.presents.push(action.payload);
+            return addState;
+        case list.ActionTypes.REMOVE_PRESENTS_SUCCESS:
+            return Object.assign({}, state, {
+                presents: state.presents.filter(present => present.id !== action.payload)
+            });
+        case list.ActionTypes.CHECK_PRESENTS_SUCCESS:
+        case list.ActionTypes.UNCHECK_PRESENTS_SUCCESS:
+            const presents = Object.assign(state.presents);
+            Object.assign(state.presents).forEach((present, index) => {
+                if (present.id === action.payload.id) {
+                    presents[index] = action.payload;
+                }
+            });
+            return Object.assign({}, state, {
+                presents: presents
+            });
         case list.ActionTypes.GET_PRESENTS_BY_CHILD:
         case list.ActionTypes.GET_PRESENTS_BY_CHILD_FAIL:
         case list.ActionTypes.GET_CHILDS:

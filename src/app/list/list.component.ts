@@ -54,18 +54,15 @@ export class ListComponent implements OnInit {
                         this.loading = true;
                         this.store.dispatch(new action.CheckPresentAction());
                         this.presentService.checkPresent(present).subscribe((e) => {
-                            this.store.dispatch(new action.CheckPresentSuccessAction());
-                            this.refreshPresents();
-                            this.loading = false;
-                        },
-                        error => {
-                            this.store.dispatch(new action.AddPresentFailAction());
-                            Observable.throw(error)
-                        });
+                                this.store.dispatch(new action.CheckPresentSuccessAction(present));
+                                this.loading = false;
+                            },
+                            error => {
+                                this.store.dispatch(new action.AddPresentFailAction());
+                                Observable.throw(error)
+                            });
                     }
                 }
-            } else {
-                this.refreshPresents();
             }
             this.dialogRef = null;
         });
@@ -93,14 +90,13 @@ export class ListComponent implements OnInit {
                 this.loading = true;
                 this.store.dispatch(new action.AddPresentAction());
                 this.presentService.createPresent(newPresent).subscribe((p: Present) => {
-                    this.store.dispatch(new action.AddPresentSuccessAction());
-                    this.refreshPresents();
-                    this.loading = false;
-                },
-                error => {
-                    this.store.dispatch(new action.AddPresentFailAction());
-                    Observable.throw(error)
-                });
+                        this.store.dispatch(new action.AddPresentSuccessAction(newPresent));
+                        this.loading = false;
+                    },
+                    error => {
+                        this.store.dispatch(new action.AddPresentFailAction());
+                        Observable.throw(error)
+                    });
             }
             this.dialogCreationRef = null;
         });
@@ -114,14 +110,13 @@ export class ListComponent implements OnInit {
                 this.loading = true;
                 this.store.dispatch(new action.UnCheckPresentAction());
                 this.presentService.checkPresent(present).subscribe((e) => {
-                    this.store.dispatch(new action.UnCheckPresentSuccessAction());
-                    this.refreshPresents();
-                    this.loading = false;
-                },
-                error => {
-                    this.store.dispatch(new action.UnCheckPresentFailAction());
-                    Observable.throw(error)
-                });
+                        this.store.dispatch(new action.UnCheckPresentSuccessAction(present));
+                        this.loading = false;
+                    },
+                    error => {
+                        this.store.dispatch(new action.UnCheckPresentFailAction());
+                        Observable.throw(error)
+                    });
             }
         }
     }
@@ -158,6 +153,7 @@ export class ListComponent implements OnInit {
                 this.uncheck(present.id)
             }
         }
+        return false;
     }
 
     remove(id: string) {
@@ -165,8 +161,7 @@ export class ListComponent implements OnInit {
         this.store.dispatch(new action.RemovePresentAction());
         this.presentService.removePresent(id).subscribe(
             result => {
-                this.store.dispatch(new action.RemovePresentSuccessAction());
-                this.refreshPresents();
+                this.store.dispatch(new action.RemovePresentSuccessAction(id));
                 this.loading = false;
             },
             error => {
