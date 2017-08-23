@@ -73,7 +73,7 @@ export class RemovePresentAction implements Action {
 export class RemovePresentSuccessAction implements Action {
     type = ActionTypes.REMOVE_PRESENTS_SUCCESS;
 
-    constructor() {
+    constructor(public payload: any) {
     }
 }
 
@@ -94,7 +94,7 @@ export class AddPresentAction implements Action {
 export class AddPresentSuccessAction implements Action {
     type = ActionTypes.ADD_PRESENTS_SUCCESS;
 
-    constructor() {
+    constructor(public payload: any) {
     }
 }
 
@@ -106,42 +106,42 @@ export class AddPresentFailAction implements Action {
 }
 
 export class CheckPresentAction implements Action {
-    type = ActionTypes.ADD_PRESENTS;
+    type = ActionTypes.CHECK_PRESENTS;
 
     constructor() {
     }
 }
 
 export class CheckPresentSuccessAction implements Action {
-    type = ActionTypes.ADD_PRESENTS_SUCCESS;
+    type = ActionTypes.CHECK_PRESENTS_SUCCESS;
 
-    constructor() {
+    constructor(public payload: any) {
     }
 }
 
 export class CheckPresentFailAction implements Action {
-    type = ActionTypes.ADD_PRESENTS_FAIL;
+    type = ActionTypes.CHECK_PRESENTS_FAIL;
 
     constructor() {
     }
 }
 
 export class UnCheckPresentAction implements Action {
-    type = ActionTypes.ADD_PRESENTS;
+    type = ActionTypes.UNCHECK_PRESENTS;
 
     constructor() {
     }
 }
 
 export class UnCheckPresentSuccessAction implements Action {
-    type = ActionTypes.ADD_PRESENTS_SUCCESS;
+    type = ActionTypes.UNCHECK_PRESENTS_SUCCESS;
 
-    constructor() {
+    constructor(public payload: any) {
     }
 }
 
 export class UnCheckPresentFailAction implements Action {
-    type = ActionTypes.ADD_PRESENTS_FAIL;
+    type = ActionTypes.UNCHECK_PRESENTS_FAIL;
 
     constructor() {
     }
