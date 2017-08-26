@@ -90,7 +90,7 @@ export class ListComponent implements OnInit {
                 this.loading = true;
                 this.store.dispatch(new action.AddPresentAction());
                 this.presentService.createPresent(newPresent).subscribe((p: Present) => {
-                        this.store.dispatch(new action.AddPresentSuccessAction(newPresent));
+                        this.store.dispatch(new action.AddPresentSuccessAction(p));
                         this.loading = false;
                     },
                     error => {
