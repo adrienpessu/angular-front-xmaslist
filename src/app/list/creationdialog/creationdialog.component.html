@@ -1,28 +1,30 @@
-<md-card><h1 md-line md-dialog-title>Ajouter un présent</h1></md-card><br/>
+<md-card><h1 *ngIf="!data.id" md-line md-dialog-title>Ajouter un présent</h1><h1 *ngIf="!!data.id" md-line md-dialog-title>Modifier un présent</h1></md-card><br/>
 <md-card>
+    <input type="hidden" value="{{data.id}}" #idHidden />
     <md-input-container>
-        <input required mdInput size='80%' #labelInput placeholder='Nom du cadeau' value=''>
+        <input required [(ngModel)]="data.label" mdInput size='80%' #labelInput placeholder='Nom du cadeau' value=''>
     </md-input-container><br/>
     <md-input-container>
-        <input mdInput size='80%' type='url' #linkInput placeholder='Lien web ' value=''>
+        <input mdInput size='80%' [(ngModel)]="data.url" type='url' #linkInput placeholder='Lien web ' value=''>
     </md-input-container><br/>
     <div [ngClass]="{'hide': (linkInput.value === '')}">
     <md-input-container>
-        <input mdInput size='80%' type='url' #linkInputTwo placeholder='Lien web 2' value=''>
+        <input mdInput size='80%' [(ngModel)]="data.url2"  type='url' #linkInputTwo placeholder='Lien web 2' value=''>
     </md-input-container><br/>
     </div>
     <div [ngClass]="{'hide': (linkInputTwo.value === '')}">
     <md-input-container >
-        <input mdInput size='80%' type='url' #linkInputThree placeholder='Lien web 3' value=''>
+        <input mdInput size='80%' [(ngModel)]="data.url3" type='url' #linkInputThree placeholder='Lien web 3' value=''>
     </md-input-container><br/>
     </div>
     <md-input-container>
-        <input mdInput size='80%' type='url' #picsInput placeholder='Lien vers une image' value=''>
+        <input mdInput size='80%' [(ngModel)]="data.pics" type='url' #picsInput placeholder='Lien vers une image' value=''>
     </md-input-container>
 </md-card>
 <md-dialog-actions>
-    <button md-raised-button (click)="create(labelInput.value, linkInput.value, linkInputTwo.value, linkInputThree.value, picsInput.value)">
-        Créer
+    <button md-raised-button (click)="createOrUpdate(idHidden.value,labelInput.value, linkInput.value, linkInputTwo.value, linkInputThree.value, picsInput.value)">
+        <span *ngIf="!data.id">Créer</span>
+        <span *ngIf="!!data.id">Modifier</span>
     </button>
     <button md-raised-button md-dialog-close (click)="cancel()">
         Annuler

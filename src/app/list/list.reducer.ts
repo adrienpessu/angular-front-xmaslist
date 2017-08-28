@@ -30,6 +30,7 @@ export const listReducer: ActionReducer<Object> = (state: ListState = initialSta
             return Object.assign({}, state, {
                 presents: state.presents.filter(present => present.id !== action.payload)
             });
+        case list.ActionTypes.EDIT_PRESENTS_SUCCESS:
         case list.ActionTypes.CHECK_PRESENTS_SUCCESS:
         case list.ActionTypes.UNCHECK_PRESENTS_SUCCESS:
             const presents = Object.assign(state.presents);

@@ -103,6 +103,55 @@ export class ListComponent implements OnInit {
         return false;
     }
 
+    openEditDialog(present: Present) {
+        console.log(present);
+        this.dialogCreationRef = this.dialog.open(CreationdialogComponent, {
+            disableClose: false,
+            data: present
+        });
+
+        this.dialogCreationRef.afterClosed().subscribe(result => {
+            if (result && result.answer) {
+                console.log(result);
+                const newPresent: Present = {
+                    id: result.id,
+                    label: result.label,
+                    childId: this.childId,
+                    url: result.link,
+                    url2: result.link2,
+                    url3: result.link3,
+                    pics: result.pics,
+                    santaName: '',
+                    order: 0
+                };
+                this.loading = true;
+                if (!result.id) {
+                    this.store.dispatch(new action.AddPresentAction());
+                    this.presentService.createPresent(newPresent).subscribe((p: Present) => {
+                            this.store.dispatch(new action.AddPresentSuccessAction(p));
+                            this.loading = false;
+                        },
+                        error => {
+                            this.store.dispatch(new action.AddPresentFailAction());
+                            Observable.throw(error)
+                        });
+                } else {
+                    this.store.dispatch(new action.EditPresentAction());
+                    this.presentService.editPresent(present).subscribe((e) => {
+                            this.store.dispatch(new action.EditPresentSuccessAction(present));
+                            this.loading = false;
+                        },
+                        error => {
+                            this.store.dispatch(new action.EditPresentFailAction());
+                            Observable.throw(error)
+                        });
+                }
+            }
+            this.dialogCreationRef = null;
+        });
+        return false;
+    }
+
     uncheck(uid) {
         for (const present of this.state.presents) {
             if (present.id === uid) {
