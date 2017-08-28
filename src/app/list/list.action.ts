@@ -13,6 +13,9 @@ export const ActionTypes = {
     ADD_PRESENTS: '[List] add present ',
     ADD_PRESENTS_SUCCESS: '[List] add present success',
     ADD_PRESENTS_FAIL: '[List] add present fail',
+    EDIT_PRESENTS: '[List] edit present ',
+    EDIT_PRESENTS_SUCCESS: '[List] edit present success',
+    EDIT_PRESENTS_FAIL: '[List] edit present fail',
     CHECK_PRESENTS: '[List] check present ',
     CHECK_PRESENTS_SUCCESS: '[List] check present success',
     CHECK_PRESENTS_FAIL: '[List] check present fail',
@@ -105,6 +108,27 @@ export class AddPresentFailAction implements Action {
     }
 }
 
+export class EditPresentAction implements Action {
+    type = ActionTypes.EDIT_PRESENTS;
+
+    constructor() {
+    }
+}
+
+export class EditPresentSuccessAction implements Action {
+    type = ActionTypes.EDIT_PRESENTS_SUCCESS;
+
+    constructor(public payload: any) {
+    }
+}
+
+export class EditPresentFailAction implements Action {
+    type = ActionTypes.EDIT_PRESENTS_FAIL;
+
+    constructor() {
+    }
+}
+
 export class CheckPresentAction implements Action {
     type = ActionTypes.CHECK_PRESENTS;
 
@@ -164,6 +188,9 @@ export type Actions
     | AddPresentAction
     | AddPresentSuccessAction
     | AddPresentFailAction
+    | EditPresentAction
+    | EditPresentSuccessAction
+    | EditPresentFailAction
     | CheckPresentAction
     | CheckPresentSuccessAction
     | CheckPresentFailAction
