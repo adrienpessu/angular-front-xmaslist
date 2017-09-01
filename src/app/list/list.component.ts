@@ -32,7 +32,7 @@ export class ListComponent implements OnInit {
 
     dialogCreationRef: MdDialogRef<CreationdialogComponent>;
 
-    loading = false;
+    loading = true;
 
     constructor(private store: Store<ListState>, private router: Router, private route: ActivatedRoute
         , private childService: ChildService, private presentService: PresentService, public dialog: MdDialog) {
@@ -134,6 +134,7 @@ export class ListComponent implements OnInit {
                             Observable.throw(error)
                         });
                 } else {
+                    this.loading = true;
                     this.store.dispatch(new action.EditPresentAction());
                     this.presentService.editPresent(newPresent).subscribe((e) => {
                             this.store.dispatch(new action.EditPresentSuccessAction(newPresent));
@@ -176,9 +177,11 @@ export class ListComponent implements OnInit {
     }
 
     refreshPresents() {
+        this.loading = true;
         this.store.dispatch(new action.GetPresentsByChildAction());
         this.presentService.getPresentByChild(this.childId).subscribe(
             presents => {
+                this.loading = false;
                 this.store.dispatch(new action.GetPresentsByChildSuccessAction(presents));
             },
             error => {
@@ -266,8 +269,6 @@ export class ListComponent implements OnInit {
                             this.childId = childs[0].id;
                         }
                         this.refreshPresents();
-
-                        this.loading = false;
                     });
                 },
                 error => {
