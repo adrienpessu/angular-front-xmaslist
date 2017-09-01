@@ -104,15 +104,13 @@ export class ListComponent implements OnInit {
     }
 
     openEditDialog(present: Present) {
-        console.log(present);
         this.dialogCreationRef = this.dialog.open(CreationdialogComponent, {
             disableClose: false,
-            data: present
+            data: Object.assign({}, present)
         });
 
         this.dialogCreationRef.afterClosed().subscribe(result => {
             if (result && result.answer) {
-                console.log(result);
                 const newPresent: Present = {
                     id: result.id,
                     label: result.label,
@@ -137,8 +135,8 @@ export class ListComponent implements OnInit {
                         });
                 } else {
                     this.store.dispatch(new action.EditPresentAction());
-                    this.presentService.editPresent(present).subscribe((e) => {
-                            this.store.dispatch(new action.EditPresentSuccessAction(present));
+                    this.presentService.editPresent(newPresent).subscribe((e) => {
+                            this.store.dispatch(new action.EditPresentSuccessAction(newPresent));
                             this.loading = false;
                         },
                         error => {
