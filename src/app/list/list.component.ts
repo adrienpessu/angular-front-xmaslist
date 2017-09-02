@@ -246,7 +246,7 @@ export class ListComponent implements OnInit {
                 this.child = childs[0].name;
                 this.childId = childs[0].id;
                 this.refreshPresents();
-                if(childs && childs.length > 1){
+                if (childs && childs.length > 1) {
                     this.sideNav.open();
                 }
             },
