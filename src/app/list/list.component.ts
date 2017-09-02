@@ -1,8 +1,8 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {ActivatedRoute, Params, Router} from '@angular/router';
 import {ChildService} from '../child/shared/child.service';
 import {PresentService} from './shared/present.service';
-import {MdDialog, MdDialogRef} from '@angular/material';
+import {MdDialog, MdDialogRef, MdSidenav} from '@angular/material';
 import {Observable} from 'rxjs/Observable';
 import {Present} from './shared/present.model';
 import {Profile} from '../login/shared/profile.model';
@@ -31,6 +31,8 @@ export class ListComponent implements OnInit {
     dialogRef: MdDialogRef<CheckdialogComponent>;
 
     dialogCreationRef: MdDialogRef<CreationdialogComponent>;
+
+    @ViewChild('sideNav') sideNav: MdSidenav;
 
     loading = true;
 
@@ -244,7 +246,9 @@ export class ListComponent implements OnInit {
                 this.child = childs[0].name;
                 this.childId = childs[0].id;
                 this.refreshPresents();
-                this.loading = false;
+                if(childs && childs.length > 1){
+                    this.sideNav.open();
+                }
             },
             error => {
                 this.store.dispatch(new action.GetChildsFailAction());
