@@ -2,31 +2,31 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Router} from '@angular/router';
 
 @Component({
-  selector: 'app-header',
-  templateUrl: './header.component.html',
-  styleUrls: ['./header.component.css'],
+    selector: 'app-header',
+    templateUrl: './header.component.html',
+    styleUrls: ['./header.component.css'],
 })
 export class HeaderComponent implements OnInit {
 
-  @Input()
-  childName = '';
+    @Input()
+    childId = '';
 
-  @Input()
-  displayToggleButton = true;
+    @Input()
+    childs: any[] = [];
 
-  @Output() onToggleSideNav = new EventEmitter<boolean>();
+    constructor(private router: Router) {
+    }
 
-  constructor( private router: Router ) {}
+    disconnect() {
+        localStorage.clear();
+        this.router.navigate(['']);
+    }
 
-  toogleSideNav() {
-    this.onToggleSideNav.emit();
-  }
+    selectChild() {
+      this.router.navigate(['/list/' + this.childId]);
+    }
 
-  disconnect() {
-    localStorage.clear();
-    this.router.navigate(['']);
-  }
-
-  ngOnInit(): void {}
+    ngOnInit(): void {
+    }
 
 }

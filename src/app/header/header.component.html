@@ -1,10 +1,10 @@
-<md-toolbar color="primary" style="background-color: #F44336">
-  <div *ngIf="displayToggleButton" md-mini-fab style="cursor: pointer" class="app-icon-button" (click)="toogleSideNav()">
-    <i class="material-icons app-toolbar-menu">menu</i>
+<md-toolbar color="primary" style="padding: 0;margin: 0;background-color: #F44336; height: 100%">
+  <div style="display: flex; align-items: center;justify-content: center;width: 100%; height: 100%; margin-top: 20px">
+      <md-select style="color: #000000" (change)="selectChild()" [(ngModel)]="childId" placeholder="Liste des souhaits de ...">
+          <md-option *ngFor="let child of childs" [value]="child.id">
+              {{ child.name }}
+          </md-option>
+      </md-select>
   </div>
-  <div style="margin-left: 10px;margin-top: -5px;">
-    Voici les souhaits de {{childName}}
-  </div>
-  <span style="flex: 1 1 auto;">&nbsp;</span>
-  <md-icon (click)="disconnect()" style="float:right" class="pointer">exit_to_app</md-icon>
+  <md-icon (click)="disconnect()" style="margin-left: auto; margin-right: 5px" class="pointer">exit_to_app</md-icon>
 </md-toolbar>

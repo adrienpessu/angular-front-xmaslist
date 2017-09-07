@@ -1,37 +1,39 @@
 .btn-div {
-  position:relative;
+    position: relative;
 }
+
 .btn-md {
-  position:absolute;
-  bottom:5px;
-  right:5px;
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
 }
 
 .pointer {
-  cursor: pointer;
+    cursor: pointer;
 }
 
 .hide {
-  display: none;
+    display: none;
 }
 
 .page {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
 }
 
 .page-header {
-  flex: 0 0 auto;
+    flex: 0 0 auto;
+    height: 60px;
 }
 
 .page-content {
-  flex: 1 1 auto;
-  position: relative;/* need this to position inner content */
-  overflow-y: auto;
+    flex: 1 1 auto;
+    position: relative; /* need this to position inner content */
+    overflow-y: auto;
 }
 
 .page-footer {
-  flex: 0 0 auto;
-  background-color: #FFFFFF;
+    flex: 0 0 auto;
+    background-color: #FFFFFF;
 }
