@@ -11,3 +11,7 @@
 .hidden{
   display: none;
 }
+
+.mat-option.mat-selected.mat-primary, .mat-primary .mat-option.mat-selected !important{
+  color: #000000;
+}

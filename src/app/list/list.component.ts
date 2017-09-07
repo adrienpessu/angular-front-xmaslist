@@ -32,8 +32,6 @@ export class ListComponent implements OnInit {
 
     dialogCreationRef: MdDialogRef<CreationdialogComponent>;
 
-    @ViewChild('sideNav') sideNav: MdSidenav;
-
     loading = true;
 
     constructor(private store: Store<ListState>, private router: Router, private route: ActivatedRoute

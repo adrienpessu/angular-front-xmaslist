@@ -29,7 +29,8 @@ import {
     MdSidenavModule,
     MdSliderModule,
     MdSnackBarModule,
-    MdToolbarModule
+    MdToolbarModule,
+    MdSelectModule
 } from '@angular/material';
 import {AuthService} from './auth.service';
 import {CheckdialogComponent} from './list/checkdialog/checkdialog.component';
@@ -73,7 +74,8 @@ import {reducer} from './app.reducer';
         MdSliderModule,
         MdSidenavModule,
         MdSnackBarModule,
-        MdProgressBarModule
+        MdProgressBarModule,
+        MdSelectModule
     ],
     exports: [MdIconModule,
         MdButtonModule,
