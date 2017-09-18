@@ -17,6 +17,10 @@ export class HeaderComponent implements OnInit {
     constructor(private router: Router) {
     }
 
+    checkOnline() {
+      return !navigator.onLine;
+    }
+
     disconnect() {
         localStorage.clear();
         this.router.navigate(['']);

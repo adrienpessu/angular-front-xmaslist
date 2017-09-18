@@ -41,6 +41,10 @@ export class ListComponent implements OnInit {
         });
     }
 
+    checkOnline() {
+      return !navigator.onLine;
+    }
+
     openDialog(uid: string) {
         this.dialogRef = this.dialog.open(CheckdialogComponent, {
             disableClose: false
@@ -192,6 +196,7 @@ export class ListComponent implements OnInit {
     }
 
     checkPresent(present) {
+      if (!this.checkOnline()) {
         if (this.profile.name !== 'admin') {
             if (!present.santaName) {
                 this.openDialog(present.id)
@@ -203,7 +208,8 @@ export class ListComponent implements OnInit {
                 this.uncheck(present.id)
             }
         }
-        return false;
+      }
+      return false;
     }
 
     remove(id: string) {
