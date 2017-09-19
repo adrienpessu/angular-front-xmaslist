@@ -34,6 +34,8 @@ export class ListComponent implements OnInit {
 
     loading = true;
 
+    onlineFlag = navigator.onLine;
+
     constructor(private store: Store<ListState>, private router: Router, private route: ActivatedRoute
         , private childService: ChildService, private presentService: PresentService, public dialog: MdDialog) {
         this.store.select('list').subscribe(s => {
@@ -42,7 +44,7 @@ export class ListComponent implements OnInit {
     }
 
     checkOnline() {
-      return !navigator.onLine;
+      return !this.onlineFlag;
     }
 
     openDialog(uid: string) {

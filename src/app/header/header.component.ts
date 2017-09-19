@@ -1,5 +1,6 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Router} from '@angular/router';
+import {Observable} from 'rxjs/Observable';
 
 @Component({
     selector: 'app-header',
@@ -14,11 +15,13 @@ export class HeaderComponent implements OnInit {
     @Input()
     childs: any[] = [];
 
+    onlineFlag = navigator.onLine;
+
     constructor(private router: Router) {
     }
 
     checkOnline() {
-      return !navigator.onLine;
+      return !this.onlineFlag;
     }
 
     disconnect() {
