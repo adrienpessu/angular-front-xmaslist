@@ -1,7 +1,7 @@
 {
     "name": "Liste de cadeaux",
     "short_name": "Liste de cadeaux",
-    "start_url": "/",
+    "start_url": "/list/",
     "icons": [
       {
         "src": "/assets/icons/favicon-16x16.png",
