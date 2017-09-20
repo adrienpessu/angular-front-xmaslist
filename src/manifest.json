@@ -1,5 +1,6 @@
 {
-    "name": "List de cadeaux",
+    "name": "Liste de cadeaux",
+    "short_name": "Liste de cadeaux",
     "start_url": "/",
     "icons": [
       {
