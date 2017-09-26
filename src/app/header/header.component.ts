@@ -15,13 +15,15 @@ export class HeaderComponent implements OnInit {
     @Input()
     childs: any[] = [];
 
-    onlineFlag = navigator.onLine;
+    onlineEvent: Observable<boolean> = Observable.of(!navigator.onLine);
+
+    offLineFlag = false;
 
     constructor(private router: Router) {
-    }
-
-    checkOnline() {
-      return !this.onlineFlag;
+      this.onlineEvent = Observable.merge(
+        Observable.fromEvent(window, 'online').map(() => true),
+        Observable.fromEvent(window, 'offline').map(() => false));
+      this.onlineEvent.subscribe((bool) => {this.offLineFlag = ! bool; console.log('offline', bool)});
     }
 
     disconnect() {
@@ -33,7 +35,6 @@ export class HeaderComponent implements OnInit {
       this.router.navigate(['/list/' + this.childId]);
     }
 
-    ngOnInit(): void {
-    }
+    ngOnInit(): void {}
 
 }

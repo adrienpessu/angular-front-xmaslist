@@ -2,7 +2,6 @@ import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
 
 import {routing} from './app.routing';
-import { AppShellModule } from '@angular/app-shell';
 
 import {AppComponent} from './app.component';
 import {HeaderComponent} from './header/header.component';
@@ -76,8 +75,7 @@ import {reducer} from './app.reducer';
         MdSidenavModule,
         MdSnackBarModule,
         MdProgressBarModule,
-        MdSelectModule,
-        AppShellModule.runtime()
+        MdSelectModule
     ],
     exports: [MdIconModule,
         MdButtonModule,
