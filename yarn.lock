@@ -16,10 +16,6 @@
   dependencies:
     tslib "^1.7.1"
 
-"@angular/app-shell@^0.1.0":
-  version "0.1.0"
-  resolved "https://registry.yarnpkg.com/@angular/app-shell/-/app-shell-0.1.0.tgz#070f0944db3c79910c644b923643cee5836779f7"
-
 "@angular/cdk@^2.0.0-beta.8":
   version "2.0.0-beta.8"
   resolved "https://registry.yarnpkg.com/@angular/cdk/-/cdk-2.0.0-beta.8.tgz#71961c851dfbeb19e085e898bf5e4461408f8b57"
@@ -160,13 +156,6 @@
   resolved "https://registry.yarnpkg.com/@angular/router/-/router-4.3.6.tgz#64033edb4fcda08a323e7533b4a1820c0f28d130"
   dependencies:
     tslib "^1.7.1"
-
-"@angular/service-worker@^1.0.0-beta.16":
-  version "1.0.0-beta.16"
-  resolved "https://registry.yarnpkg.com/@angular/service-worker/-/service-worker-1.0.0-beta.16.tgz#cb4fcd1d5b311195136fd284bcf2dbb870544d64"
-  dependencies:
-    base64-js "^1.1.2"
-    jshashes "^1.0.5"
 
 "@angular/tsc-wrapped@4.3.6":
   version "4.3.6"
@@ -584,10 +573,6 @@ base64-arraybuffer@0.1.5:
 base64-js@^1.0.2:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/base64-js/-/base64-js-1.2.0.tgz#a39992d723584811982be5e290bb6a53d86700f1"
-
-base64-js@^1.1.2:
-  version "1.2.1"
-  resolved "https://registry.yarnpkg.com/base64-js/-/base64-js-1.2.1.tgz#a91947da1f4a516ea38e5b4ec0ec3773675e0886"
 
 base64id@1.0.0:
   version "1.0.0"
@@ -2839,10 +2824,6 @@ jsesc@^1.3.0:
 jsesc@~0.5.0:
   version "0.5.0"
   resolved "https://registry.yarnpkg.com/jsesc/-/jsesc-0.5.0.tgz#e7dee66e35d6fc16f710fe91d5cf69f70f08911d"
-
-jshashes@^1.0.5:
-  version "1.0.7"
-  resolved "https://registry.yarnpkg.com/jshashes/-/jshashes-1.0.7.tgz#bed8c97a0e9632fd0513916f55f76dd5486be59f"
 
 json-loader@^0.5.4:
   version "0.5.4"
