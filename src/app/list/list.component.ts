@@ -34,11 +34,20 @@ export class ListComponent implements OnInit {
 
     loading = true;
 
+    onlineEvent: Observable<boolean> = Observable.of(!navigator.onLine);
+
+    offLineFlag = false;
+
     constructor(private store: Store<ListState>, private router: Router, private route: ActivatedRoute
         , private childService: ChildService, private presentService: PresentService, public dialog: MdDialog) {
         this.store.select('list').subscribe(s => {
             this.state = s;
         });
+        this.onlineEvent = Observable.merge(
+          Observable.fromEvent(window, 'online').map(() => true),
+          Observable.fromEvent(window, 'offline').map(() => false));
+        this.onlineEvent.subscribe((bool) => {this.offLineFlag = ! bool; console.log('offline', bool)});
+
     }
 
     openDialog(uid: string) {
@@ -192,6 +201,7 @@ export class ListComponent implements OnInit {
     }
 
     checkPresent(present) {
+      if (!navigator.onLine) {
         if (this.profile.name !== 'admin') {
             if (!present.santaName) {
                 this.openDialog(present.id)
@@ -203,7 +213,8 @@ export class ListComponent implements OnInit {
                 this.uncheck(present.id)
             }
         }
-        return false;
+      }
+      return false;
     }
 
     remove(id: string) {

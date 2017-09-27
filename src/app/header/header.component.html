@@ -7,4 +7,10 @@
       </md-select>
   </div>
   <md-icon (click)="disconnect()" style="margin-left: auto; margin-right: 5px" class="pointer">exit_to_app</md-icon>
+  <md-toolbar-row style="background-color: #606060" *ngIf="offLineFlag">
+      <div style="display: flex; align-items: center;justify-content: center;width: 100%; height: 100%; margin-top: 20px">
+          <span>Vous êtes hors-ligne</span>
+      </div>
+      <md-icon style="margin-left: auto; margin-right: 5px">network_locked</md-icon>
+  </md-toolbar-row>
 </md-toolbar>

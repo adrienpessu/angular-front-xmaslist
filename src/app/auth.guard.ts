@@ -4,6 +4,7 @@ import { CanActivate } from '@angular/router';
 import { AuthService } from './auth.service';
 import {JwtHelper} from 'angular2-jwt';
 import {Profile} from 'app/login/shared/profile.model';
+import {environment} from '../environments/environment';
 
 @Injectable()
 export class AuthGuard implements CanActivate {
@@ -13,12 +14,13 @@ export class AuthGuard implements CanActivate {
   constructor(private auth: AuthService, private router: Router) {}
 
   canActivate() {
+    console.log(window.location.hostname);
     const jwtHelper: JwtHelper = new JwtHelper();
     if (!!localStorage.getItem('id_token')) {
       const expirationDate = jwtHelper.getTokenExpirationDate(localStorage.getItem('id_token'));
       if (expirationDate < new Date()) {
         localStorage.clear();
-        this.router.navigate(['login']);
+        this.redirectToLogin();
         return false;
       }
       if (localStorage.getItem('profile') !== null) {
@@ -29,8 +31,17 @@ export class AuthGuard implements CanActivate {
         }
       }
     }
-    this.router.navigate(['login']);
+    this.redirectToLogin();
+
     return false;
+  }
+
+  redirectToLogin() {
+    if (window.location.hostname === environment.ADMIN_URL) {
+      this.router.navigate(['login', 'admin']);
+    } else {
+      this.router.navigate(['login']);
+    }
   }
 
 }

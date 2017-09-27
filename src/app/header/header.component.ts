@@ -1,5 +1,6 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Router} from '@angular/router';
+import {Observable} from 'rxjs/Observable';
 
 @Component({
     selector: 'app-header',
@@ -14,7 +15,15 @@ export class HeaderComponent implements OnInit {
     @Input()
     childs: any[] = [];
 
+    onlineEvent: Observable<boolean> = Observable.of(!navigator.onLine);
+
+    offLineFlag = false;
+
     constructor(private router: Router) {
+      this.onlineEvent = Observable.merge(
+        Observable.fromEvent(window, 'online').map(() => true),
+        Observable.fromEvent(window, 'offline').map(() => false));
+      this.onlineEvent.subscribe((bool) => {this.offLineFlag = ! bool; console.log('offline', bool)});
     }
 
     disconnect() {
@@ -26,7 +35,6 @@ export class HeaderComponent implements OnInit {
       this.router.navigate(['/list/' + this.childId]);
     }
 
-    ngOnInit(): void {
-    }
+    ngOnInit(): void {}
 
 }
