@@ -201,7 +201,7 @@ export class ListComponent implements OnInit {
     }
 
     checkPresent(present) {
-      if (!navigator.onLine) {
+      if (!this.offLineFlag) {
         if (this.profile.name !== 'admin') {
             if (!present.santaName) {
                 this.openDialog(present.id)
