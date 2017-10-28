@@ -14,7 +14,6 @@ export class AuthGuard implements CanActivate {
   constructor(private auth: AuthService, private router: Router) {}
 
   canActivate() {
-    console.log(window.location.hostname);
     const jwtHelper: JwtHelper = new JwtHelper();
     if (!!localStorage.getItem('id_token')) {
       const expirationDate = jwtHelper.getTokenExpirationDate(localStorage.getItem('id_token'));
@@ -25,8 +24,7 @@ export class AuthGuard implements CanActivate {
       }
       if (localStorage.getItem('profile') !== null) {
         this.profile = JSON.parse(localStorage.getItem('profile'));
-        if (this.profile != null && (this.profile.name === 'invite'
-          || this.profile.name === 'admin')) {
+        if (this.profile != null) {
           return true;
         }
       }

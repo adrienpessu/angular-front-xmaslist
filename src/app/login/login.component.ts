@@ -6,6 +6,7 @@ import {MdSnackBar} from '@angular/material';
 import {Store} from '@ngrx/store';
 import {LoginState} from './login.reducer';
 import * as action from './login.action';
+import {JwtHelper} from 'angular2-jwt';
 
 @Component({
     selector: 'app-login',
@@ -38,10 +39,12 @@ export class LoginComponent implements OnInit {
         }
         this.store.dispatch(new action.LoginAction());
         this.loginService.giveProfile(this.user, this.password).subscribe(result => {
-                if (result && result.name && result.token) {
+                if (result) {
                     this.store.dispatch(new action.LoginSuccessAction());
-                    localStorage.setItem('profile', JSON.stringify(result));
-                    localStorage.setItem('id_token', result.token);
+                    const jwtHelper: JwtHelper = new JwtHelper();
+                    let token = result.substring(6);
+                    localStorage.setItem('id_token', token);
+                    localStorage.setItem('profile', jwtHelper.decodeToken(result).sub);
                     this.redirectToList();
                 } else {
                     this.store.dispatch(new action.LoginFailAction());

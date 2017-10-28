@@ -23,7 +23,7 @@ export class HeaderComponent implements OnInit {
       this.onlineEvent = Observable.merge(
         Observable.fromEvent(window, 'online').map(() => true),
         Observable.fromEvent(window, 'offline').map(() => false));
-      this.onlineEvent.subscribe((bool) => {this.offLineFlag = ! bool; console.log('offline', bool)});
+      this.onlineEvent.subscribe((bool) => {this.offLineFlag = ! bool;});
     }
 
     disconnect() {
