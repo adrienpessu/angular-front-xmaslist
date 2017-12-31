@@ -178,12 +178,14 @@ export class ListComponent implements OnInit {
         }
     }
 
+    isChecked(present: Present) {
+      return (!!present && present.santaName && present.santaName.length > 0);
+    }
+
     isAdmin() {
-        if (!!this.profile) {
-          console.log(this.profile);
-            return true;
-        }
-        return false;
+        const retour = !!this.profile && this.profile.role.indexOf('ROLE_ADMIN') > 0;
+        console.log(retour);
+        return retour;
     }
 
     refreshPresents() {
@@ -203,8 +205,7 @@ export class ListComponent implements OnInit {
 
     checkPresent(present) {
       if (!this.offLineFlag) {
-        if (this.profile) {
-            console.log(this.profile);
+        if (!this.isAdmin()) {
             if (!present.santaName) {
                 this.openDialog(present.id)
             }
@@ -244,7 +245,6 @@ export class ListComponent implements OnInit {
             this.profile = JSON.parse(localStorage.getItem('profile'));
 
             if (this.profile == null) {
-                console.log('|| [invite, admin].indexOf(this.profile.name) < 0', this.profile);
                 this.router.navigate(['']);
             }
         } else {

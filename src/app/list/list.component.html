@@ -13,7 +13,7 @@
         margin-bottom: 10px;">
           <md-list>
             <md-list-item *ngFor="let present of state.presents">
-              <md-icon (click)="openEditDialog(present)" class="pointer" *ngIf="(!present.santaName && isAdmin() && !offLineFlag)">edit</md-icon>
+              <md-icon (click)="openEditDialog(present)" class="pointer" *ngIf="(!isChecked(present) && isAdmin() && !offLineFlag)">edit</md-icon>
               <md-icon (click)="remove(present.id)" class="pointer" *ngIf="isAdmin() && !offLineFlag">delete</md-icon>
               <md-checkbox [checked]="present.santaName" [disabled]="((!!present.santaName && !isAdmin()) || offLineFlag)" (click)="checkPresent(present)" ></md-checkbox>
               <img *ngIf="present.pics" md-list-avatar src="{{present.pics}}" alt="...">

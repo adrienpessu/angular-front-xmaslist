@@ -5,7 +5,7 @@
 
 export const environment = {
   production: false,
-  API_URL: 'http://localhost:9000',
+  API_URL: 'http://localhost:8080',
   API_AUTH_URL: 'http://localhost:8080',
   API_ACCOUNT_URL: 'https://gift-account.adrien.me',
   ADMIN_URL: '127.0.0.1'
