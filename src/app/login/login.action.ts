@@ -11,25 +11,25 @@ export const ActionTypes = {
 export class LoginAction implements Action {
     type = ActionTypes.LOGIN;
 
-    constructor() { }
+    constructor(public payload: any = {}) { }
 }
 
 export class LoginSuccessAction implements Action {
     type = ActionTypes.LOGIN_SUCCESS;
 
-    constructor() { }
+    constructor(public payload: any = {}) { }
 }
 
 export class LoginFailAction implements Action {
     type = ActionTypes.LOGIN_FAIL;
 
-    constructor() { }
+    constructor(public payload: any = {}) { }
 }
 
 export class LogoutSuccessAction implements Action {
     type = ActionTypes.LOGOUT_SUCCESS;
 
-    constructor() { }
+    constructor(public payload: any = {}) { }
 }
 
 export class UserLoggedAction implements Action {

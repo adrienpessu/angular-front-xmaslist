@@ -2,39 +2,39 @@
   <div class="page">
     <div class="page-header">
       <app-header [childs]="state.childs" [childId]="childId"></app-header>
-      <md-progress-bar *ngIf="loading" mode="indeterminate" color="primary"></md-progress-bar>
+      <mat-progress-bar *ngIf="loading" mode="indeterminate" color="primary"></mat-progress-bar>
       <div style="height: 5px" *ngIf="!loading"></div>
     </div>
     <div class="page-content">
       <div class="mainContainer">
-        <md-card style="margin-left: 50px;
+        <mat-card style="margin-left: 50px;
         margin-right: 50px;
         margin-top: 10px;
         margin-bottom: 10px;">
-          <md-list>
-            <md-list-item *ngFor="let present of state.presents">
-              <md-icon (click)="openEditDialog(present)" class="pointer" *ngIf="(!isChecked(present) && isAdmin() && !offLineFlag)">edit</md-icon>
-              <md-icon (click)="remove(present.id)" class="pointer" *ngIf="isAdmin() && !offLineFlag">delete</md-icon>
-              <md-checkbox [checked]="present.santaName" [disabled]="((!!present.santaName && !isAdmin()) || offLineFlag)" (click)="checkPresent(present)" ></md-checkbox>
-              <img *ngIf="present.pics" md-list-avatar src="{{present.pics}}" alt="...">
-              <h3 md-line> {{present.label}}</h3>
-              <p md-line>
+          <mat-list>
+            <mat-list-item *ngFor="let present of state.presents">
+              <mat-icon (click)="openEditDialog(present)" class="pointer" *ngIf="(!isChecked(present) && isAdmin() && !offLineFlag)">edit</mat-icon>
+              <mat-icon (click)="remove(present.id)" class="pointer" *ngIf="isAdmin() && !offLineFlag">delete</mat-icon>
+              <mat-checkbox [checked]="present.santaName" [disabled]="((!!present.santaName && !isAdmin()) || offLineFlag)" (click)="checkPresent(present)" ></mat-checkbox>
+              <img *ngIf="present.pics" mat-list-avatar src="{{present.pics}}" alt="...">
+              <h3 mat-line> {{present.label}}</h3>
+              <p mat-line>
                 <span *ngIf="present.url"> <a href="{{present.url}}" target="_blank" >{{present.url}} </a><br/></span>
                 <span *ngIf="present.url2"> <a href="{{present.url2}}" target="_blank" >{{present.url2}} </a><br/></span>
                 <span *ngIf="present.url3"> <a href="{{present.url3}}" target="_blank" >{{present.url3}} </a><br/></span>
                 <span *ngIf="present.santaName"> <i> Déjà préparé par {{present.santaName}} </i><br/></span>
               </p>
-              <md-divider></md-divider>
-            </md-list-item>
+              <mat-divider></mat-divider>
+            </mat-list-item>
             <h3 *ngIf="!!state.presents && state.presents.length === 0 && !loading">Cette liste est vide :(</h3>
-          </md-list>
-        </md-card>
+          </mat-list>
+        </mat-card>
       </div>
     </div>
     <div class="page-footer" *ngIf="isAdmin() && !offLineFlag">
       <div class="btn-div" style="display:flex;justify-content: space-between;margin-top: -56px;" >
         <div>&nbsp;</div>
-        <button class="btn-md" md-fab (click)="openCreationDialog()" style="top: 0px;"><md-icon >add</md-icon></button>
+        <button class="btn-md" mat-fab (click)="openCreationDialog()" style="top: 0px;"><mat-icon >add</mat-icon></button>
       </div>
     </div>
   </div>

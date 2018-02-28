@@ -1,32 +1,32 @@
-<md-card><h1 *ngIf="!data.id" md-line md-dialog-title>Ajouter un présent</h1><h1 *ngIf="!!data.id" md-line md-dialog-title>Modifier un présent</h1></md-card><br/>
-<md-card>
+<mat-card><h1 *ngIf="!data.id" mat-line mat-dialog-title>Ajouter un présent</h1><h1 *ngIf="!!data.id" mat-line mat-dialog-title>Modifier un présent</h1></mat-card><br/>
+<mat-card>
     <input type="hidden" value="{{data.id}}" #idHidden />
-    <md-input-container>
-        <input required [(ngModel)]="data.label" mdInput size='80%' #labelInput placeholder='Nom du cadeau' value=''>
-    </md-input-container><br/>
-    <md-input-container>
-        <input mdInput size='80%' [(ngModel)]="data.url" type='url' #linkInput placeholder='Lien web ' value=''>
-    </md-input-container><br/>
+    <mat-input-container>
+        <input required [(ngModel)]="data.label" matInput size='80%' #labelInput placeholder='Nom du cadeau' value=''>
+    </mat-input-container><br/>
+    <mat-input-container>
+        <input matInput size='80%' [(ngModel)]="data.url" type='url' #linkInput placeholder='Lien web ' value=''>
+    </mat-input-container><br/>
     <div [ngClass]="{'hide': (linkInput.value === '')}">
-    <md-input-container>
-        <input mdInput size='80%' [(ngModel)]="data.url2"  type='url' #linkInputTwo placeholder='Lien web 2' value=''>
-    </md-input-container><br/>
+    <mat-input-container>
+        <input matInput size='80%' [(ngModel)]="data.url2"  type='url' #linkInputTwo placeholder='Lien web 2' value=''>
+    </mat-input-container><br/>
     </div>
     <div [ngClass]="{'hide': (linkInputTwo.value === '')}">
-    <md-input-container >
-        <input mdInput size='80%' [(ngModel)]="data.url3" type='url' #linkInputThree placeholder='Lien web 3' value=''>
-    </md-input-container><br/>
+    <mat-input-container >
+        <input matInput size='80%' [(ngModel)]="data.url3" type='url' #linkInputThree placeholder='Lien web 3' value=''>
+    </mat-input-container><br/>
     </div>
-    <md-input-container>
-        <input mdInput size='80%' [(ngModel)]="data.pics" type='url' #picsInput placeholder='Lien vers une image' value=''>
-    </md-input-container>
-</md-card>
-<md-dialog-actions>
-    <button md-raised-button (click)="createOrUpdate(idHidden.value,labelInput.value, linkInput.value, linkInputTwo.value, linkInputThree.value, picsInput.value)">
+    <mat-input-container>
+        <input matInput size='80%' [(ngModel)]="data.pics" type='url' #picsInput placeholder='Lien vers une image' value=''>
+    </mat-input-container>
+</mat-card>
+<mat-dialog-actions>
+    <button mat-raised-button (click)="createOrUpdate(idHidden.value,labelInput.value, linkInput.value, linkInputTwo.value, linkInputThree.value, picsInput.value)">
         <span *ngIf="!data.id">Créer</span>
         <span *ngIf="!!data.id">Modifier</span>
     </button>
-    <button md-raised-button md-dialog-close (click)="cancel()">
+    <button mat-raised-button mat-dialog-close (click)="cancel()">
         Annuler
     </button>
-</md-dialog-actions>
+</mat-dialog-actions>

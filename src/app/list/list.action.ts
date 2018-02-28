@@ -27,7 +27,7 @@ export const ActionTypes = {
 export class GetPresentsByChildAction implements Action {
     type = ActionTypes.GET_PRESENTS_BY_CHILD;
 
-    constructor() {
+    constructor(public payload: any) {
     }
 }
 
@@ -41,14 +41,14 @@ export class GetPresentsByChildSuccessAction implements Action {
 export class GetPresentsByChildFailAction implements Action {
     type = ActionTypes.GET_PRESENTS_BY_CHILD_FAIL;
 
-    constructor() {
+    constructor(public payload: any) {
     }
 }
 
 export class GetChildsAction implements Action {
     type = ActionTypes.GET_CHILDS;
 
-    constructor() {
+    constructor(public payload: any) {
     }
 }
 
@@ -62,14 +62,14 @@ export class GetChildsSuccessAction implements Action {
 export class GetChildsFailAction implements Action {
     type = ActionTypes.GET_CHILDS_FAIL;
 
-    constructor() {
+    constructor(public payload: any) {
     }
 }
 
 export class RemovePresentAction implements Action {
     type = ActionTypes.REMOVE_PRESENTS;
 
-    constructor() {
+    constructor(public payload: any) {
     }
 }
 
@@ -83,14 +83,14 @@ export class RemovePresentSuccessAction implements Action {
 export class RemovePresentFailAction implements Action {
     type = ActionTypes.REMOVE_PRESENTS_FAIL;
 
-    constructor() {
+    constructor(public payload: any) {
     }
 }
 
 export class AddPresentAction implements Action {
     type = ActionTypes.ADD_PRESENTS;
 
-    constructor() {
+    constructor(public payload: any) {
     }
 }
 
@@ -104,14 +104,14 @@ export class AddPresentSuccessAction implements Action {
 export class AddPresentFailAction implements Action {
     type = ActionTypes.ADD_PRESENTS_FAIL;
 
-    constructor() {
+    constructor(public payload: any) {
     }
 }
 
 export class EditPresentAction implements Action {
     type = ActionTypes.EDIT_PRESENTS;
 
-    constructor() {
+    constructor(public payload: any) {
     }
 }
 
@@ -125,14 +125,14 @@ export class EditPresentSuccessAction implements Action {
 export class EditPresentFailAction implements Action {
     type = ActionTypes.EDIT_PRESENTS_FAIL;
 
-    constructor() {
+    constructor(public payload: any) {
     }
 }
 
 export class CheckPresentAction implements Action {
     type = ActionTypes.CHECK_PRESENTS;
 
-    constructor() {
+    constructor(public payload: any) {
     }
 }
 
@@ -146,14 +146,14 @@ export class CheckPresentSuccessAction implements Action {
 export class CheckPresentFailAction implements Action {
     type = ActionTypes.CHECK_PRESENTS_FAIL;
 
-    constructor() {
+    constructor(public payload: any) {
     }
 }
 
 export class UnCheckPresentAction implements Action {
     type = ActionTypes.UNCHECK_PRESENTS;
 
-    constructor() {
+    constructor(public payload: any) {
     }
 }
 
@@ -167,7 +167,7 @@ export class UnCheckPresentSuccessAction implements Action {
 export class UnCheckPresentFailAction implements Action {
     type = ActionTypes.UNCHECK_PRESENTS_FAIL;
 
-    constructor() {
+    constructor(public payload: any) {
     }
 }
 

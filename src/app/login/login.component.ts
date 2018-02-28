@@ -1,10 +1,11 @@
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {LoginService} from './login.service';
 import {ActivatedRoute, Params, Router} from '@angular/router';
 import {Profile} from './shared/profile.model';
-import {MdSnackBar} from '@angular/material';
+import {MatSnackBar} from '@angular/material';
 import {Store} from '@ngrx/store';
-import {LoginState} from './login.reducer';
+import {State} from './login.reducer';
 import * as action from './login.action';
 import {JwtHelper} from 'angular2-jwt';
 
@@ -26,8 +27,8 @@ export class LoginComponent implements OnInit {
 
     @ViewChild('passwordField') passwordField;
 
-    constructor(private store: Store<LoginState>, private loginService: LoginService, private router: Router
-        , private route: ActivatedRoute, public snackBar: MdSnackBar) {
+    constructor(private store: Store<State>, private loginService: LoginService, private router: Router
+        , private route: ActivatedRoute, public snackBar: MatSnackBar) {
         this.store.select('login').subscribe(s => {
             this.state = s;
         });

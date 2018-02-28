@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {MdDialogRef} from '@angular/material';
+import {MatDialogRef} from '@angular/material';
 
 @Component({
   selector: 'app-checkdialog',
@@ -8,7 +8,7 @@ import {MdDialogRef} from '@angular/material';
 })
 export class CheckdialogComponent implements OnInit {
 
-  constructor(public dialogRef: MdDialogRef<CheckdialogComponent>) { }
+  constructor(public dialogRef: MatDialogRef<CheckdialogComponent>) { }
 
   ngOnInit() {
   }

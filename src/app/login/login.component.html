@@ -2,14 +2,14 @@
     align-items: center;
     justify-content: center;
     flex-direction: column;" (keyup)="onEnterKey($event)">
-  <md-input-container>
-  <input #passwordField autofocus mdInput MdInputDirective
+  <mat-input-container>
+  <input #passwordField autofocus matInput matInputDirective
     [(ngModel)]="password"
     type="password"
     placeholder="Mot de passe"
     maxlength="100"
     value=""/>
-  </md-input-container>
+  </mat-input-container>
 <br/>
-<button md-raised-button (click)="login()">Entrer</button>
+<button mat-raised-button (click)="login()">Entrer</button>
 </div>

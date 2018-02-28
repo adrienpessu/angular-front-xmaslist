@@ -1,19 +1,19 @@
 import { ActionReducer, Action } from '@ngrx/store';
 import * as login from './login.action';
 
-export interface LoginState {
+export interface State {
     login: string;
     password: string;
     showErrorMsg: boolean;
 }
 
-export const initialState: LoginState = {
+export const initialState: State = {
     login: '',
     password: '',
     showErrorMsg: false
 };
 
-export const loginReducer: ActionReducer<Object> = (state: LoginState = initialState, action: Action) => {
+export function loginReducer(state = initialState, action: login.Actions): State {
     switch (action.type) {
         case login.ActionTypes.LOGIN:
             return Object.assign({}, state, {

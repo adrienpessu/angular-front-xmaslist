@@ -12,31 +12,25 @@ import {HttpModule} from '@angular/http';
 import {FormsModule} from '@angular/forms';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {AuthGuard} from './auth.guard';
-import {
-    MdButtonModule,
-    MdButtonToggleModule,
-    MdCardModule,
-    MdCheckboxModule,
-    MdCommonModule,
-    MdCoreModule,
-    MdDialogModule,
-    MdIconModule,
-    MdIconRegistry,
-    MdInputModule,
-    MdLineModule,
-    MdListModule,
-    MdProgressBarModule,
-    MdSidenavModule,
-    MdSliderModule,
-    MdSnackBarModule,
-    MdToolbarModule,
-    MdSelectModule
-} from '@angular/material';
+import {MatButtonModule} from '@angular/material/button';
+import {MatButtonToggleModule} from '@angular/material/button-toggle';
+import {MatCardModule} from '@angular/material/card';
+import {MatCheckboxModule} from '@angular/material/checkbox';
+import {MatDialogModule} from '@angular/material/dialog';
+import {MatIconModule} from '@angular/material/icon';
+import {MatInputModule} from '@angular/material/input';
+import {MatListModule} from '@angular/material/list';
+import {MatProgressBarModule} from '@angular/material/progress-bar';
+import {MatSidenavModule} from '@angular/material/sidenav';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
+import {MatToolbarModule} from '@angular/material/toolbar';
+import {MatSelectModule} from '@angular/material/select';
 import {AuthService} from './auth.service';
 import {CheckdialogComponent} from './list/checkdialog/checkdialog.component';
 import {CreationdialogComponent} from './list/creationdialog/creationdialog.component';
 import {StoreModule} from '@ngrx/store';
 import {reducer} from './app.reducer';
+import {routerReducer} from '@ngrx/router-store';
 
 @NgModule({
     declarations: [
@@ -56,29 +50,23 @@ import {reducer} from './app.reducer';
         HttpModule,
         BrowserModule,
         routing,
-        StoreModule.provideStore(reducer),
-        MdLineModule,
-        MdIconModule,
-        MdButtonToggleModule,
-        MdButtonModule,
-        MdCheckboxModule,
-        MdInputModule,
-        MdDialogModule,
-        MdToolbarModule,
-        MdListModule,
-        MdSidenavModule,
-        MdCardModule,
-        MdCommonModule,
-        MdCoreModule,
-        MdButtonToggleModule,
-        MdSliderModule,
-        MdSidenavModule,
-        MdSnackBarModule,
-        MdProgressBarModule,
-        MdSelectModule
+        StoreModule.forRoot({ reducer }),
+        MatButtonModule,
+        MatButtonToggleModule,
+        MatCardModule,
+        MatCheckboxModule,
+        MatDialogModule,
+        MatIconModule,
+        MatInputModule,
+        MatListModule,
+        MatProgressBarModule,
+        MatSidenavModule,
+        MatSnackBarModule,
+        MatToolbarModule,
+        MatSelectModule
     ],
     entryComponents: [CheckdialogComponent, CreationdialogComponent],
-    providers: [AuthGuard, AuthService, MdIconRegistry],
+    providers: [AuthGuard, AuthService/*, MdIconRegistry*/],
     bootstrap: [AppComponent]
 })
 export class AppModule {

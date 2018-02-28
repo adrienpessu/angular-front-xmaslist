@@ -1,27 +1,27 @@
-import {Action, ActionReducer} from '@ngrx/store';
+import { Action } from '@ngrx/store';
 import * as list from './list.action';
 import {Present} from './shared/present.model';
 
-export interface ListState {
+export interface State {
     presents: Present[];
     childs: any[];
 }
 
-export const initialState: ListState = {
+export const initialState: State = {
     presents: [],
     childs: []
 };
 
-export const listReducer: ActionReducer<Object> = (state: ListState = initialState, action: Action) => {
+export function listReducer(state = initialState, action: list.Actions): State {
     switch (action.type) {
         case list.ActionTypes.GET_PRESENTS_BY_CHILD_SUCCESS:
             return Object.assign({}, state, {
                 presents: action.payload
             });
         case list.ActionTypes.GET_CHILDS_SUCCESS:
-            return Object.assign({}, state, {
-                childs: action.payload
-            });
+          return Object.assign({}, state, {
+              childs: action.payload
+          });
         case list.ActionTypes.ADD_PRESENTS_SUCCESS:
             const addState = Object.assign({}, state);
             addState.presents.push(action.payload);
@@ -50,3 +50,4 @@ export const listReducer: ActionReducer<Object> = (state: ListState = initialSta
             return Object.assign({}, state);
     }
 };
+

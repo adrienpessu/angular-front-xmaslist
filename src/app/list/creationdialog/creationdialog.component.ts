@@ -1,5 +1,5 @@
 import {Component, Inject, OnInit} from '@angular/core';
-import {MD_DIALOG_DATA, MdDialogConfig, MdDialogRef} from '@angular/material';
+import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 import {Present} from '../shared/present.model';
 
 @Component({
@@ -11,9 +11,7 @@ export class CreationdialogComponent implements OnInit {
 
     present: Present;
 
-    config: MdDialogConfig;
-
-    constructor(public dialogRef: MdDialogRef<CreationdialogComponent>, @Inject(MD_DIALOG_DATA) public data: any) {
+    constructor(public dialogRef: MatDialogRef<CreationdialogComponent>, @Inject(MAT_DIALOG_DATA) public data: any) {
         if (!this.data) {
             this.data = new Present();
         }

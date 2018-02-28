@@ -1,15 +1,16 @@
+import { MatSidenavModule } from '@angular/material/sidenav';
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {ActivatedRoute, Params, Router} from '@angular/router';
 import {ChildService} from '../child/shared/child.service';
 import {PresentService} from './shared/present.service';
-import {MdDialog, MdDialogRef, MdSidenav} from '@angular/material';
+import {MatDialog, MatDialogRef, MatSidenav} from '@angular/material';
 import {Observable} from 'rxjs/Observable';
 import {Present} from './shared/present.model';
 import {Profile} from '../login/shared/profile.model';
 import {CheckdialogComponent} from './checkdialog/checkdialog.component';
 import {CreationdialogComponent} from './creationdialog/creationdialog.component';
 import {Store} from '@ngrx/store';
-import {ListState} from './list.reducer';
+import {State} from './list.reducer';
 import * as action from './list.action';
 
 @Component({
@@ -20,7 +21,7 @@ import * as action from './list.action';
 })
 export class ListComponent implements OnInit {
 
-    state: any;
+    state: any = {};
 
     child: string;
 
@@ -28,9 +29,9 @@ export class ListComponent implements OnInit {
 
     profile: Profile;
 
-    dialogRef: MdDialogRef<CheckdialogComponent>;
+    dialogRef: MatDialogRef<CheckdialogComponent>;
 
-    dialogCreationRef: MdDialogRef<CreationdialogComponent>;
+    dialogCreationRef: MatDialogRef<CreationdialogComponent>;
 
     loading = true;
 
@@ -38,10 +39,14 @@ export class ListComponent implements OnInit {
 
     offLineFlag = false;
 
-    constructor(private store: Store<ListState>, private router: Router, private route: ActivatedRoute
-        , private childService: ChildService, private presentService: PresentService, public dialog: MdDialog) {
-        this.store.select('list').subscribe(s => {
-            this.state = s;
+    constructor(private store: Store<State>, private router: Router, private route: ActivatedRoute
+        , private childService: ChildService, private presentService: PresentService, public dialog: MatDialog) {
+        this.store.select('presents').subscribe(s => {
+            this.state.presents = s;
+        });
+        this.store.select('childs').subscribe(s => {
+            this.state.childs = s;
+            console.log(this.store);
         });
         this.onlineEvent = Observable.merge(
           Observable.fromEvent(window, 'online').map(() => true),
@@ -61,13 +66,13 @@ export class ListComponent implements OnInit {
                     if (present.id === uid) {
                         present.santaName = (result.santaName ? result.santaName : 'Père noël');
                         this.loading = true;
-                        this.store.dispatch(new action.CheckPresentAction());
+                        this.store.dispatch(new action.CheckPresentAction({}));
                         this.presentService.checkPresent(present).subscribe((e) => {
                                 this.store.dispatch(new action.CheckPresentSuccessAction(present));
                                 this.loading = false;
                             },
                             error => {
-                                this.store.dispatch(new action.AddPresentFailAction());
+                                this.store.dispatch(new action.AddPresentFailAction({}));
                                 Observable.throw(error)
                             });
                     }
@@ -97,13 +102,13 @@ export class ListComponent implements OnInit {
                     order: 0
                 };
                 this.loading = true;
-                this.store.dispatch(new action.AddPresentAction());
+                this.store.dispatch(new action.AddPresentAction({}));
                 this.presentService.createPresent(newPresent).subscribe((p: Present) => {
                         this.store.dispatch(new action.AddPresentSuccessAction(p));
                         this.loading = false;
                     },
                     error => {
-                        this.store.dispatch(new action.AddPresentFailAction());
+                        this.store.dispatch(new action.AddPresentFailAction({}));
                         Observable.throw(error)
                     });
             }
@@ -133,24 +138,24 @@ export class ListComponent implements OnInit {
                 };
                 this.loading = true;
                 if (!result.id) {
-                    this.store.dispatch(new action.AddPresentAction());
+                    this.store.dispatch(new action.AddPresentAction({}));
                     this.presentService.createPresent(newPresent).subscribe((p: Present) => {
                             this.store.dispatch(new action.AddPresentSuccessAction(p));
                             this.loading = false;
                         },
                         error => {
-                            this.store.dispatch(new action.AddPresentFailAction());
+                            this.store.dispatch(new action.AddPresentFailAction({}));
                             Observable.throw(error)
                         });
                 } else {
                     this.loading = true;
-                    this.store.dispatch(new action.EditPresentAction());
+                    this.store.dispatch(new action.EditPresentAction({}));
                     this.presentService.editPresent(newPresent).subscribe((e) => {
                             this.store.dispatch(new action.EditPresentSuccessAction(newPresent));
                             this.loading = false;
                         },
                         error => {
-                            this.store.dispatch(new action.EditPresentFailAction());
+                            this.store.dispatch(new action.EditPresentFailAction({}));
                             Observable.throw(error)
                         });
                 }
@@ -165,13 +170,13 @@ export class ListComponent implements OnInit {
             if (present.id === uid) {
                 present.santaName = '';
                 this.loading = true;
-                this.store.dispatch(new action.UnCheckPresentAction());
+                this.store.dispatch(new action.UnCheckPresentAction({}));
                 this.presentService.checkPresent(present).subscribe((e) => {
                         this.store.dispatch(new action.UnCheckPresentSuccessAction(present));
                         this.loading = false;
                     },
                     error => {
-                        this.store.dispatch(new action.UnCheckPresentFailAction());
+                        this.store.dispatch(new action.UnCheckPresentFailAction({}));
                         Observable.throw(error)
                     });
             }
@@ -190,14 +195,14 @@ export class ListComponent implements OnInit {
 
     refreshPresents() {
         this.loading = true;
-        this.store.dispatch(new action.GetPresentsByChildAction());
+        this.store.dispatch(new action.GetPresentsByChildAction({}));
         this.presentService.getPresentByChild(this.childId).subscribe(
             presents => {
                 this.loading = false;
                 this.store.dispatch(new action.GetPresentsByChildSuccessAction(presents));
             },
             error => {
-                this.store.dispatch(new action.GetPresentsByChildFailAction());
+                this.store.dispatch(new action.GetPresentsByChildFailAction({}));
                 Observable.throw(error)
             }
         );
@@ -222,14 +227,14 @@ export class ListComponent implements OnInit {
 
     remove(id: string) {
         this.loading = true;
-        this.store.dispatch(new action.RemovePresentAction());
+        this.store.dispatch(new action.RemovePresentAction({}));
         this.presentService.removePresent(id).subscribe(
             result => {
                 this.store.dispatch(new action.RemovePresentSuccessAction(id));
                 this.loading = false;
             },
             error => {
-                this.store.dispatch(new action.RemovePresentFailAction());
+                this.store.dispatch(new action.RemovePresentFailAction({}));
                 Observable.throw(error)
             }
         );
@@ -252,7 +257,7 @@ export class ListComponent implements OnInit {
         }
 
         this.loading = true;
-        this.store.dispatch(new action.GetChildsAction());
+        this.store.dispatch(new action.GetChildsAction({}));
         this.childService.getChildren().subscribe((childs: any[]) => {
                 this.store.dispatch(new action.GetChildsSuccessAction(childs));
                 this.child = childs[0].name;
@@ -260,7 +265,7 @@ export class ListComponent implements OnInit {
                 this.refreshPresents();
             },
             error => {
-                this.store.dispatch(new action.GetChildsFailAction());
+                this.store.dispatch(new action.GetChildsFailAction({}));
                 Observable.throw(error)
             }
         );
@@ -269,7 +274,7 @@ export class ListComponent implements OnInit {
         // (+) converts string 'id' to a number
             .subscribe((params: Params) => {
                     this.loading = true;
-                    this.store.dispatch(new action.GetChildsAction());
+                    this.store.dispatch(new action.GetChildsAction({}));
                     this.childService.getChildren().subscribe((childs: any[]) => {
                         this.store.dispatch(new action.GetChildsSuccessAction(childs));
                         if (!!params['name']) {
@@ -285,7 +290,7 @@ export class ListComponent implements OnInit {
                     });
                 },
                 error => {
-                    this.store.dispatch(new action.GetChildsFailAction());
+                    this.store.dispatch(new action.GetChildsFailAction({}));
                     Observable.throw(error)
                 }
             );
